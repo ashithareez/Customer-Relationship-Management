@@ -20,11 +20,11 @@
             </div>
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950 hover:bg-blue-400 hover:text-white" aria-current="page">Dashboard</a>
-                <a href="Leads.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950 hover:bg-blue-400 hover:text-white">Leads</a>
+                <a href="index.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950 hover:bg-blue-400 hover:text-white" aria-current="page">Dashboard</a>
+                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950 hover:bg-blue-400 hover:text-white">Leads</a>
                 <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950 hover:bg-blue-400 hover:text-white">Accounts</a>
                 <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950 hover:bg-gray-700 hover:text-white">Contacts</a>
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-100 hover:bg-gray-700 hover:text-white">Opportunity</a>
+                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950 hover:bg-gray-700 hover:text-white">Opportunity</a>
               </div>
             </div>
           </div>
@@ -52,18 +52,51 @@
         </div>
       </div>
     </nav>
-  <header class="bg-white shadow">
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
-    </div>
-  </header>
-  <main>
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <!-- Your content -->
-    </div>
-  </main>
- </div>
- 
+    <header class="bg-white ">
+      <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto p-4">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Leads</h1>
+        <div class="flex items-center md:order-2 space-x-1 md:space-x-2 rtl:space-x-reverse">
+          <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">New</a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+                    <thead class="text-xs text-gray-9500 uppercase bg-gray-300">
+                        <tr>
+                            <th scope="col" class="p-4">
+                                <div class="flex items-center">
+                                    <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <label for="checkbox-all-search" class="sr-only">checkbox</label>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Name
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Company
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Email
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Phone Number
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </main>
+  </div>
   <footer class="bg-blue-600 w-full">
     <div class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 lg:pt-20 mx-auto">
       <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
