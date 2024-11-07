@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="keywords" content="CRM">
-<title>CRM Dashboard</title>
+<title>Opportunity Form</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
@@ -81,18 +81,50 @@
     </div>
   </nav>
   <!-- Main Content -->
-  <main class="mx-auto sm:px-10 lg:px-12 py-10">
-    <div class="bg-white p-6 rounded-lg shadow-lg ">
-      <h2 class="text-2xl font-semibold mb-4">Sales Activity Dashboard User</h2>
-        <p class="text-gray-700 mb-6">Sales KPIs</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Placeholder Cards for Charts -->
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Sales Pipeline</div>
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Percentage Achieved</div>
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Leads by Source</div>
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Top Opportunities</div>
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Top Customers</div>
+  <main class="container mx-auto p-6">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-semibold mb-6">Create New Opportunity</h2>
+      <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Opportunity Name -->
+        <div>
+          <label for="opportunityName" class="block text-sm font-medium text-gray-700">Opportunity Name</label>
+          <input type="text" id="opportunityName" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type" required>
         </div>
+        <!-- Opportunity Stage -->
+        <div>
+          <label for="opportunityStage" class="block text-sm font-medium text-gray-700">Opportunity Stage</label>
+          <select id="opportunityStage" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" required>
+            <option>None</option>
+            <option>Prospecting</option>
+            <option>Qualification</option>
+            <option>Negotiation</option>
+          </select>
+        </div>
+        <!-- Account Name -->
+        <div>
+        <label for="accountName" class="block text-sm font-medium text-gray-700">Account Name</label>
+          <input type="text" id="accountName" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Search"  required>
+        </div>
+        <!-- Close Date -->
+        <div>
+          <label for="closeDate" class="block text-sm font-medium text-gray-700">Close Date</label>
+          <input type="date" id="closeDate" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <!-- Contact -->
+        <div>
+          <label for="contact" class="block text-sm font-medium text-gray-700">Contact</label>
+          <input type="text" id="contact" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type">
+        </div>
+        <!-- Comments -->
+        <div>
+          <label for="comments" class="block text-sm font-medium text-gray-700">Comments</label>
+          <textarea id="comments" rows="4" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type"></textarea>
+        </div>
+        <!-- Create Opportunity Button -->
+        <div class="md:col-span-2">
+         <button type="submit" class="w-full bg-cyan-600 text-white px-4 py-2 rounded-md hover:bg-cyan-500">Create Opportunity</button>
+        </div>
+      </form>
     </div>
   </main>
   <footer class="bg-cyan-500">
@@ -153,6 +185,3 @@
   </footer>  
 </body>
 </html>
-  
-
-
