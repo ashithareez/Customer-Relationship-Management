@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="keywords" content="CRM">
-<title>CRM Dashboard</title>
+<title>Contact</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
@@ -54,7 +54,7 @@
             <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Accounts</a>
             <a href="contact.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Contact</a>
             <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Leads</a>
-            <a href="Opportunity.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Opportunity</a>
+            <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Opportunity</a>
             <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Task</a>
         </div>
         </div>
@@ -73,33 +73,34 @@
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
         <a href="index.html" class="block rounded-md  bg-cyan-600 text-black px-3 py-2 text-black font-medium hover:bg-cyan-600 hover:text-white">Dashboard</a>
         <a href="#" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Accounts</a>
-        <a href="#" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Contact</a>
+        <a href="contact.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Contact</a>
         <a href="#" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Leads</a>
-        <a href="Opportunity.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Opportunity</a>
+        <a href="#" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Opportunity</a>
         <a href="#" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Tasks</a></div>
     </div>
   </nav>
-  <!-- Main Content -->
-  <main class="mx-auto sm:px-10 lg:px-12 py-10">
-    <div class="bg-white p-6 rounded-lg shadow-lg ">
-      <h2 class="text-2xl font-semibold mb-4">Sales Activity Dashboard User</h2>
-        <p class="text-gray-700 mb-6">Sales KPIs</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Placeholder Cards for Charts -->
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Sales Pipeline</div>
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Percentage Achieved</div>
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Leads by Source</div>
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Top Opportunities</div>
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Top Customers</div>
+  <main class="mx-auto sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between p-4">
+        <!-- Heading -->
+        <h1 class="text-2xl font-semibold text-gray-900">All Contacts</h1>
+        <!-- Search Bar -->
+        <div class="flex items-center">
+        <!-- Search Bar -->
+          <input type="text" placeholder="Search Contacts" class="w-100 px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
-    </div>
+        <a href="contact_form.html" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500">Create New Contact</a>
+      </div>  
   </main>
+  <div class="mx-auto sm:px-10 lg:px-12 py-10">
+    <div class="bg-white p-80 rounded-lg shadow-lg ">
+    </div>
+  </div>
   <footer class="bg-blue-600 h=30">
     <div class="mx-auto sm:px-6 lg:px-8 py-6">
         <!--Grid-->
         <div class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-8 py-10 max-sm:max-w-sm max-sm:mx-auto gap-y-8">
           <a href="index.html" class="flex rtl:space-x-reverse">
-            <img src="CRM Logo.png" class="h-20" alt="CRM Logo"> <!-- Increase logo size without affecting header -->
+            
             </a>
         </div>
         <!--Grid-->
@@ -112,6 +113,3 @@
   </footer>  
 </body>
 </html>
-  
-
-

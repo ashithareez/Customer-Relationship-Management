@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="keywords" content="CRM">
-<title>CRM Dashboard</title>
+<title>Contact Form</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">
@@ -52,7 +52,7 @@
           <div class="flex space-x-6">
             <a href="index.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Dashboard</a>
             <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Accounts</a>
-            <a href="contact.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Contact</a>
+            <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Contact</a>
             <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Leads</a>
             <a href="Opportunity.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Opportunity</a>
             <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Task</a>
@@ -80,18 +80,60 @@
     </div>
   </nav>
   <!-- Main Content -->
-  <main class="mx-auto sm:px-10 lg:px-12 py-10">
-    <div class="bg-white p-6 rounded-lg shadow-lg ">
-      <h2 class="text-2xl font-semibold mb-4">Sales Activity Dashboard User</h2>
-        <p class="text-gray-700 mb-6">Sales KPIs</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Placeholder Cards for Charts -->
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Sales Pipeline</div>
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Percentage Achieved</div>
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Leads by Source</div>
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Top Opportunities</div>
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Top Customers</div>
+  <main class="container mx-auto p-6">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-semibold mb-6">Create New Contact</h2>
+      <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Contact Name -->
+        <div>
+          <label for="contactName" class="block text-sm font-medium text-gray-700">Contact Name</label>
+          <input type="text" id="contactName" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type" required>
         </div>
+        <!-- title  -->
+        <div>
+            <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+            <input type="text" id="title" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type" required>
+          </div>
+        <!-- Account Name -->
+        <div>
+        <label for="accountName" class="block text-sm font-medium text-gray-700">Account Name</label>
+          <input type="text" id="accountName" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Search"  required>
+        </div>
+        <!-- Created Date -->
+        <div>
+          <label for="createDate" class="block text-sm font-medium text-gray-700">Create Date</label>
+          <input type="date" id="closeDate" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <!-- Contact owner-->
+        <div>
+          <label for="contact" class="block text-sm font-medium text-gray-700">Contact Owner</label>
+          <input type="text" id="contact" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type">
+        </div>
+        <!-- email-->
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+            <input type="text" id="email" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type">
+          </div>
+        <!-- phone number-->
+        <div>
+            <label for="number" class="block text-sm font-medium text-gray-700">Phone Number</label>
+            <input type="text" id="number" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type">
+          </div>
+        <!-- company Address-->
+        <div>
+            <label for="companyAddress" class="block text-sm font-medium text-gray-700">Company Address</label>
+            <textarea id="companyAddress" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type"></textarea>
+          </div>
+        <!-- Comments -->
+        <div>
+          <label for="comments" class="block text-sm font-medium text-gray-700">Comments</label>
+          <textarea id="comments" rows="4" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type"></textarea>
+        </div>
+        <!-- Create Contact Button -->
+        <div class="md:col-span-2">
+         <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500">Create Contact</button>
+        </div>
+      </form>
     </div>
   </main>
   <footer class="bg-blue-600 h=30">
@@ -99,7 +141,7 @@
         <!--Grid-->
         <div class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-8 py-10 max-sm:max-w-sm max-sm:mx-auto gap-y-8">
           <a href="index.html" class="flex rtl:space-x-reverse">
-            <img src="CRM Logo.png" class="h-20" alt="CRM Logo"> <!-- Increase logo size without affecting header -->
+            
             </a>
         </div>
         <!--Grid-->
@@ -112,6 +154,3 @@
   </footer>  
 </body>
 </html>
-  
-
-
