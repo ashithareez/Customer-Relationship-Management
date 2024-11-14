@@ -72,7 +72,6 @@
     <!-- Mobile menu, show/hide based on menu state. -->
     <div class="sm:hidden" id="mobile-menu">
       <div class="space-y-1 px-2 pb-3 pt-2">
-        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
         <a href="index.html" class="block rounded-md  bg-cyan-600 text-black px-3 py-2 text-black font-medium hover:bg-cyan-600 hover:text-white">Dashboard</a>
         <a href="account.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Accounts</a>
         <a href="contact.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Contact</a>
@@ -86,7 +85,6 @@
     <div class="bg-white p-6 rounded-lg shadow-lg">
       <h2 class="text-2xl font-semibold mb-6">Create New Account</h2>
       <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Opportunity Name -->
         <!-- Account Name -->
         <div>
             <label for="accountName" class="block text-sm font-medium text-gray-700">Account Name</label>
@@ -97,36 +95,40 @@
           <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
           <input type="text" id="title" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type" required>
         </div>
+        <!-- Account Owner  -->
         <div>
             <label for="owner" class="block text-sm font-medium text-gray-700"> Account Owner</label>
             <input type="text" id="owner" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type">
         </div>
         <div>
+          <!-- Created Dater  -->
           <label for="createdDate" class="block text-sm font-medium text-gray-700">Created Date</label>
           <input type="date" id="createdDate" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
+        <!-- Contact  -->
         <div>
           <label for="contact" class="block text-sm font-medium text-gray-700">Contact</label>
           <input type="text" id="contact" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Search">
-      </div>
+        </div>
+        <!-- Email Address  -->
         <div>
             <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
             <input type="email" id="email" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
-          </div>
-          <div>
+        </div>
+        <div>
             <label for="phonenumber" class="block text-sm font-medium text-gray-700">Phone Number</label>
             <input type="tel" id="phonenumber" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
-          </div>
-        <!-- Comments -->
-        <div>
-          <label for="companyAddress" class="block text-sm font-medium text-gray-700">Company Address</label>
-          <textarea id="companyAddress" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type"></textarea>
         </div>
-        <!-- Create Opportunity Button -->
+        <!-- Company Address -->
+        <div>
+            <label for="companyAddress" class="block text-sm font-medium text-gray-700">Company Address</label>
+            <textarea id="companyAddress" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type"></textarea>
+        </div>
+        <!-- Create Account Button -->
         <div class="md:col-span-2">
             <a href="account.html" class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500 inline-block text-center">
                 Create Account
-              </a>
+            </a>
         </div>
       </form>
     </div>
@@ -146,6 +148,6 @@
             </div>
         </div>
     </div>
-</footer>  
+  </footer>  
 </body>
 </html>
