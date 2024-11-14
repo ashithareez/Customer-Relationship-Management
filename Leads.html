@@ -2,156 +2,118 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="keywords" content="CRM">
-<title>Customer Relationship Management</title>
+<title>Leads</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script> 
-<style></style>
 </head>
-<body>
-  <div class="min-h-full">
-    <nav class="bg-gray-50">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="flex h-16 items-center justify-between">
-          <div class="flex items-center">
-            <div class="flex-shrink-0">
-              <img class="h-8 w-8" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
-            </div>
-            <div class="hidden md:block">
-              <div class="ml-10 flex items-baseline space-x-4">
-                <a href="index.html" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950 hover:bg-blue-400 hover:text-white" aria-current="page">Dashboard</a>
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950 hover:bg-blue-400 hover:text-white">Leads</a>
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950 hover:bg-blue-400 hover:text-white">Accounts</a>
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950 hover:bg-gray-700 hover:text-white">Contacts</a>
-                <a href="#" class="rounded-md px-3 py-2 text-sm font-medium text-gray-950 hover:bg-gray-700 hover:text-white">Opportunity</a>
-              </div>
-            </div>
-          </div>
-          <div class="hidden md:block">
-            <div class="ml-4 flex items-center md:ml-6">
-              <button type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                <span class="absolute -inset-1.5"></span>
-                <span class="sr-only">View notifications</span>
-                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-                </svg>
-              </button>
-              <!-- Profile dropdown -->
-              <div class="relative ml-3">
-                <div>
-                  <button type="button" class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                    <span class="absolute -inset-1.5"></span>
-                    <span class="sr-only">Open user menu</span>
-                    <img class="h-8 w-8 rounded-full" src="" alt="">
-                 </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <header class="bg-white ">
-      <div class="flex flex-wrap items-center justify-between max-w-screen-xl mx-auto p-4">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Leads</h1>
-        <div class="flex items-center md:order-2 space-x-1 md:space-x-2 rtl:space-x-reverse">
-          <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 md:px-5 md:py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">New</a>
-        </div>
-      </div>
-    </header>
-    <main>
-      <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                    <thead class="text-xs text-gray-9500 uppercase bg-gray-300">
-                        <tr>
-                            <th scope="col" class="p-4">
-                                <div class="flex items-center">
-                                    <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                    <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                                </div>
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Name
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Company
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Email
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Phone Number
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Action
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
-      </main>
-  </div>
-  <footer class="bg-blue-600 w-full">
-    <div class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 lg:pt-20 mx-auto">
-      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-        <div class="col-span-full lg:col-span-1">
-           <a class="flex-none text-xl font-bold text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#" aria-label="Brand">CRM</a>
-        </div>
-        <div class="col-span-1">
-           <h4><a href="#" class="font-semibold text-gray-100 hover:underline">Leads</a></h4>
-         </div>
-        <div class="col-span-1">
-           <h4><a href="#" class="font-semibold text-gray-100 hover:underline">Accounts</a></h4>
-        </div>
-        <div class="col-span-1">
-           <h4><a href="#" class="font-semibold text-gray-100 hover:underline">Contact Us</a></h4>
-        </div>
-        <div class="col-span-1">
-            <h4><a href="#" class="font-semibold text-gray-100 hover:underline">About Us</a></h4>   
-        </div>
-      </div>
-      <div class="mt-5 sm:mt-12 grid gap-y-2 sm:gap-y-0 sm:flex sm:justify-between sm:items-center">
-        <div class="flex justify-between items-center">
-           <p class="text-sm text-gray-100">© 2024. All rights reserved.</p>
-        </div>
-        <div>
-          <a class="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-white/10 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-1 focus:ring-gray-600" href="#">
-            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+<body class="bg-gray-100">
+  <!-- Header -->
+  <header class="bg-blue-600 h-16"> <!-- Set a fixed height for the header -->
+    <div class=" mx-auto sm:px-6 lg:px-8 flex items-center justify-between h-full"> <!-- Ensure the div stretches fully -->
+      <a href="#" class="flex rtl:space-x-reverse">
+        <img src="CRM Logo.png" class="h-20" alt="CRM Logo"> <!-- Increase logo size without affecting header -->
+       </a>
+      <div class="flex items-center space-x-4">
+       <!-- Search Bar -->
+        <div class="relative">
+          <input type="text" placeholder="Search..." class="px-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300">
+          <button class="absolute right-2 top-2 text-gray-500">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 4a6 6 0 100 12 6 6 0 000-12zM21 21l-4.35-4.35" />
             </svg>
-          </a>
-          <a class="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-white/10 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-1 focus:ring-gray-600" href="#">
-            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z"/>
-            </svg>
-          </a>
-          <a class="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-white/10 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-1 focus:ring-gray-600" href="#">
-            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
-            </svg>
-          </a>
-          <a class="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-white/10 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-1 focus:ring-gray-600" href="#">
-            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-            </svg>
-          </a>
-          <a class="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-white/10 disabled:opacity-50 disabled:pointer-events-none focus:outline-none focus:ring-1 focus:ring-gray-600" href="#">
-            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M3.362 10.11c0 .926-.756 1.681-1.681 1.681S0 11.036 0 10.111C0 9.186.756 8.43 1.68 8.43h1.682v1.68zm.846 0c0-.924.756-1.68 1.681-1.68s1.681.756 1.681 1.68v4.21c0 .924-.756 1.68-1.68 1.68a1.685 1.685 0 0 1-1.682-1.68v-4.21zM5.89 3.362c-.926 0-1.682-.756-1.682-1.681S4.964 0 5.89 0s1.68.756 1.68 1.68v1.682H5.89zm0 .846c.924 0 1.68.756 1.68 1.681S6.814 7.57 5.89 7.57H1.68C.757 7.57 0 6.814 0 5.89c0-.926.756-1.682 1.68-1.682h4.21zm6.749 1.682c0-.926.755-1.682 1.68-1.682.925 0 1.681.756 1.681 1.681s-.756 1.681-1.68 1.681h-1.681V5.89zm-.848 0c0 .924-.755 1.68-1.68 1.68A1.685 1.685 0 0 1 8.43 5.89V1.68C8.43.757 9.186 0 10.11 0c.926 0 1.681.756 1.681 1.68v4.21zm-1.681 6.748c.926 0 1.682.756 1.682 1.681S11.036 16 10.11 16s-1.681-.756-1.681-1.68v-1.682h1.68zm0-.847c-.924 0-1.68-.755-1.68-1.68 0-.925.756-1.681 1.68-1.681h4.21c.924 0 1.68.756 1.68 1.68 0 .926-.756 1.681-1.68 1.681h-4.21z"/>
-            </svg>
-          </a>
+          </button>
         </div>
+        <!-- Icons -->
+        <button class="p-2 rounded-full text-white hover:bg-cyan-700">
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+           <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14V11a6.002 6.002 0 00-4-5.659V4a2 2 0 10-4 0v1.341C7.67 6.165 6 8.388 6 11v3c0 .379-.214.725-.553.895L4 17h5m4 0v1a2 2 0 11-4 0v-1h4z"/>
+          </svg>
+        </button>
+        <button class="p-2 rounded-full text-white hover:bg-cyan-700">
+          <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </button>
+        <a href="login.html">
+          <button class="p-2 rounded-full text-white hover:bg-cyan-700">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+          </button>
+        </a>
       </div>
     </div>
-</footer>
+  </header>
+  <!-- Navbar -->
+  <nav class="bg-white">
+    <div class="mx-auto sm:px-6 lg:px-8 relative flex h-16 items-center justify-between">
+      <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+        <div class="hidden sm:ml-6 sm:block">
+          <div class="flex space-x-6">
+            <a href="index.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Dashboard</a>
+            <a href="account.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Accounts</a>
+            <a href="contact.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Contact</a>
+            <a href="leads.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Leads</a>
+            <a href="Opportunity.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Opportunity</a>
+            <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Task</a>
+        </div>
+        </div>
+      </div>
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+        <button class="p-2 rounded-full bg-white hover:bg-blue-500">
+            <svg class="h-8 w-8 text-black"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+            </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div class="sm:hidden" id="mobile-menu">
+      <div class="space-y-1 px-2 pb-3 pt-2">
+        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+        <a href="index.html" class="block rounded-md  bg-cyan-600 text-black px-3 py-2 text-black font-medium hover:bg-cyan-600 hover:text-white">Dashboard</a>
+        <a href="account.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Accounts</a>
+        <a href="contact.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Contact</a>
+        <a href="leads.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Leads</a>
+        <a href="Opportunity.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Opportunity</a>
+        <a href="#" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Tasks</a></div>
+    </div>
+  </nav>
+  <main class="mx-auto sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between p-4">
+        <!-- Heading -->
+        <h1 class="text-2xl font-semibold text-gray-900">Lead</h1>
+        <!-- Search Bar -->
+        <div class="flex items-center">
+        <!-- Search Bar -->
+          <input type="text" placeholder="Search Opportunities" class="w-100 px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <a href="lead_form.html" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500">Create New Lead</a>
+      </div>  
+  </main>
+  <div class="mx-auto sm:px-10 lg:px-12 py-10">
+    <div class="bg-white p-80 rounded-lg shadow-lg ">
+    </div>
+  </div>
+  <footer class="bg-blue-600 h-20">
+    <div class="mx-auto sm:px-6 lg:px-8 py-4">
+        <!--Grid-->
+        <div class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-8 py-4 max-sm:max-w-sm max-sm:mx-auto gap-y-4">
+            <a href="index.html" class="flex rtl:space-x-reverse">
+                <!-- Add content if needed -->
+            </a>
+        </div>
+        <!--Grid-->
+        <div class="py-2 border-t border-gray-200">
+            <div class="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
+                <span class="text-sm text-white">2024, All rights reserved.</span>
+            </div>
+        </div>
+    </div>
+</footer>   
 </body>
 </html>
-  
 
 
