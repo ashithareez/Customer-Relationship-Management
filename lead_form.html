@@ -53,8 +53,8 @@
         <div class="hidden sm:ml-6 sm:block">
           <div class="flex space-x-6">
             <a href="index.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Dashboard</a>
-            <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Accounts</a>
-            <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Contact</a>
+            <a href="account.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Accounts</a>
+            <a href="contact.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Contact</a>
             <a href="leads.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Leads</a>
             <a href="Opportunity.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Opportunity</a>
             <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Task</a>
@@ -74,7 +74,7 @@
       <div class="space-y-1 px-2 pb-3 pt-2">
         <a href="index.html" class="block rounded-md  bg-cyan-600 text-black px-3 py-2 text-black font-medium hover:bg-cyan-600 hover:text-white">Dashboard</a>
         <a href="account.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Accounts</a>
-        <a href="#" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Contact</a>
+        <a href="contact.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Contact</a>
         <a href="leads.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Leads</a>
         <a href="Opportunity.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Opportunity</a>
         <a href="#" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Tasks</a></div>
@@ -100,15 +100,25 @@
             <label for="accountName" class="block text-sm font-medium text-gray-700">Account Name</label>
             <input type="text" id="accountName" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type"  required>
         </div>
+        <!-- Lead Owner  -->
+        <div>
+          <label for="leadowner" class="block text-sm font-medium text-gray-700">Lead Owner</label>
+          <input type="text" id="leadowner" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type"  required>
+      </div>
         <!-- Title  -->
         <div>
             <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
             <input type="text" id="title" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type"  required>
         </div>
-        <!-- Contact  -->
+        <!-- Contact Name -->
         <div>
-            <label for="contact" class="block text-sm font-medium text-gray-700">Contact</label>
-            <input type="text" id="contact" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type">
+            <label for="contactname" class="block text-sm font-medium text-gray-700">Contact Name</label>
+            <input type="text" id="contactname" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type">
+        </div>
+        <!-- Created Date -->
+        <div>
+          <label for="createddate" class="block text-sm font-medium text-gray-700">Created Date</label>
+          <input type="date" id="createddate" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
         <!-- Email Address  -->
         <div>
