@@ -83,19 +83,37 @@
         <!-- Heading -->
         <h1 class="text-2xl font-semibold text-gray-900">All Contacts</h1>
         <!-- Search Bar -->
-        <div class="flex items-center">
-        <!-- Search Bar -->
-          <input type="text" placeholder="Search Contacts" class="w-100 px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
-        </div>
-        <a href="contact_form.html" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500">Create New Contact</a>
-      </div>  
-  </main>
-  <div class="mx-auto sm:px-10 lg:px-12 py-10">
-    <div class="bg-white p-80 rounded-lg shadow-lg ">
-    </div>
+<div class="flex items-center">
+  <!-- Search Input -->
+  <input 
+      type="text" 
+      id="searchContactInput" 
+      placeholder="Search Contacts" 
+      class="w-100 px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+  <!-- Search Button -->
+  <button 
+      id="searchContactButton" 
+      class="ml-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500">
+      Search
+  </button>
+</div>
+<a href="contact_form.html" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500">Create New Contact</a>
+</div>  
+</main>
+<div class="mx-auto sm:px-10 lg:px-12 py-10">
+  <div class="bg-white p-80 rounded-lg shadow-lg">
+      <div id="contactResults" class="mt-6">
+          <!-- Results will appear here -->
+      </div>
   </div>
-  <footer class="bg-blue-600 h=30">
-    <div class="mx-auto sm:px-6 lg:px-8 py-6">
+</div>
+
+<!-- Include the external search functionality script -->
+<script src="contactsearch.js"></script>
+
+</div>
+<footer class="bg-blue-600 h-20">
+  <div class="mx-auto sm:px-6 lg:px-8 py-4">
         <!--Grid-->
         <div class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-8 py-10 max-sm:max-w-sm max-sm:mx-auto gap-y-8">
           <a href="index.html" class="flex rtl:space-x-reverse">

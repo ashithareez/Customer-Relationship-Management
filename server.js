@@ -74,6 +74,31 @@ app.post('/api/accounts', (req, res) => {
     });
 });
 
+app.get('/accounts/search', (req, res) => {
+    const searchQuery = req.query.query;
+
+    if (!searchQuery) {
+        return res.status(400).json({ message: 'Search query is required.' });
+    }
+
+    const query = `
+        SELECT * 
+        FROM account 
+        WHERE account_name LIKE ? 
+        LIMIT 10
+    `;
+    const values = [`%${searchQuery}%`];
+
+    db.query(query, values, (err, results) => {
+        if (err) {
+            console.error('Error searching accounts:', err);
+            return res.status(500).json({ message: 'Error fetching accounts.', error: err.message });
+        }
+
+        res.status(200).json({ results });
+    });
+});
+
 
 
 // ====== Contact Routes ======
@@ -122,6 +147,30 @@ app.post('/contacts', (req, res) => {
     });
 });
 
+app.get('/contacts/search', (req, res) => {
+    const searchQuery = req.query.query;
+
+    if (!searchQuery) {
+        return res.status(400).json({ message: 'Search query is required.' });
+    }
+
+    const query = `
+        SELECT * 
+        FROM contact 
+        WHERE contact_name LIKE ? 
+        LIMIT 10
+    `;
+    const values = [`%${searchQuery}%`];
+
+    db.query(query, values, (err, results) => {
+        if (err) {
+            console.error('Error searching contacts:', err);
+            return res.status(500).json({ message: 'Error fetching contacts.', error: err.message });
+        }
+
+        res.status(200).json({ results });
+    });
+});
 
 // ====== Opportunity Routes ======
 
@@ -151,6 +200,29 @@ app.post('/opportunities', (req, res) => {
     res.status(201).json({ message: 'Opportunity created successfully', result });
   });
 });
+
+// Backend Route: Search Opportunities
+app.get('/opportunities/search', (req, res) => {
+    const { query } = req.query; // Extract search query from request
+
+    const sqlQuery = `
+        SELECT opportunity_name, opportunity_stage, opportunity_owner, created_date, account_name, comments
+        FROM opportunity
+        WHERE opportunity_name LIKE ? 
+        LIMIT 10
+    `;
+    const values = [`%${query}%`];
+
+    db.query(sqlQuery, values, (err, results) => {
+        if (err) {
+            console.error('Error searching opportunities:', err);
+            res.status(500).json({ message: 'Error searching opportunities', error: err.message });
+            return;
+        }
+        res.status(200).json({ message: 'Search results fetched successfully', results });
+    });
+});
+
 
 // ====== Lead Routes ======
 
@@ -195,6 +267,31 @@ app.post('/leads', (req, res) => {
             return;
         }
         res.status(201).json({ message: 'Lead created successfully', result });
+    });
+});
+
+app.get('/leads/search', (req, res) => {
+    const searchQuery = req.query.query;
+
+    if (!searchQuery) {
+        return res.status(400).json({ message: 'Search query is required.' });
+    }
+
+    const query = `
+        SELECT * 
+        FROM \`lead\` 
+        WHERE lead_name LIKE ? 
+        LIMIT 10
+    `;
+    const values = [`%${searchQuery}%`];
+
+    db.query(query, values, (err, results) => {
+        if (err) {
+            console.error('Error searching leads:', err);
+            return res.status(500).json({ message: 'Error fetching leads.', error: err.message });
+        }
+
+        res.status(200).json({ results });
     });
 });
 
