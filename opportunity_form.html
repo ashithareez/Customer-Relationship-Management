@@ -46,112 +46,109 @@
       </div>
     </div>
   </header>
+
   <!-- Navbar -->
   <nav class="bg-white">
     <div class="mx-auto sm:px-6 lg:px-8 relative flex h-16 items-center justify-between">
-      <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-        <div class="hidden sm:ml-6 sm:block">
-          <div class="flex space-x-6">
-            <a href="index.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Dashboard</a>
-            <a href="account.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Accounts</a>
-            <a href="contact.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Contact</a>
-            <a href="Leads.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Leads</a>
-            <a href="Opportunity.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500 ">Opportunity</a>
-            <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Task</a>
+        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            <div class="hidden sm:ml-6 sm:block">
+                <div class="flex space-x-6">
+                    <a href="index.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Dashboard</a>
+                    <a href="account.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Accounts</a>
+                    <a href="contact.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Contact</a>
+                    <a href="leads.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Leads</a>
+                    <a href="Opportunity.html" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Opportunity</a>
+                    <a href="#" class="rounded-md bg-white px-3 py-2 text-sm font-medium text-black hover:bg-blue-500">Task</a>
+                </div>
+            </div>
         </div>
+        <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <button class="p-2 rounded-full bg-white hover:bg-blue-500">
+              <svg class="h-8 w-8 text-black"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+              </svg>
+          </button>
         </div>
-      </div>
-      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <button class="p-2 rounded-full bg-white hover:bg-blue-500">
-            <svg class="h-8 w-8 text-black"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
-            </svg>
-        </button>
-      </div>
     </div>
-    <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="sm:hidden" id="mobile-menu">
-      <div class="space-y-1 px-2 pb-3 pt-2">
-        <a href="index.html" class="block rounded-md  bg-cyan-600 text-black px-3 py-2 text-black font-medium hover:bg-cyan-600 hover:text-white">Dashboard</a>
-        <a href="account.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Accounts</a>
-        <a href="contact.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Contact</a>
-        <a href="Leads.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Leads</a>
-        <a href="Opportunity.html" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Opportunity</a>
-        <a href="#" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Tasks</a></div>
-    </div>
-  </nav>
+</nav>
   <!-- Main Content -->
   <main class="container mx-auto p-6">
     <div class="bg-white p-6 rounded-lg shadow-lg">
       <h2 class="text-2xl font-semibold mb-6">Create New Opportunity</h2>
-      <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Opportunity Name -->
+      <form id="opportunityForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label for="opportunityName" class="block text-sm font-medium text-gray-700">Opportunity Name</label>
-          <input type="text" id="opportunityName" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type" required>
+          <input type="text" id="opportunityName" name="opportunityName" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" required>
         </div>
-        <!-- Opportunity ID -->
-        <div>
-          <label for="opportunityid" class="block text-sm font-medium text-gray-700">Opportunity ID</label>
-          <input type="text" id="opportunityid" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type">
-        </div>
-        <!-- Opportunity Stage -->
         <div>
           <label for="opportunityStage" class="block text-sm font-medium text-gray-700">Opportunity Stage</label>
-          <select id="opportunityStage" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" required>
-            <option>None</option>
-            <option>Prospecting</option>
-            <option>Qualification</option>
-            <option>Negotiation</option>
+          <select id="opportunityStage" name="opportunityStage" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" required>
+            <option value="None">None</option>
+            <option value="Prospecting">Prospecting</option>
+            <option value="Qualification">Qualification</option>
+            <option value="Negotiation">Negotiation</option>
           </select>
         </div>
-        <!-- Account Name -->
         <div>
-        <label for="accountName" class="block text-sm font-medium text-gray-700">Account Name</label>
-          <input type="text" id="accountName" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Search"  required>
+          <label for="createdDate" class="block text-sm font-medium text-gray-700">Created Date</label>
+          <input type="date" id="createdDate" name="createdDate" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
-        <!-- Created Date -->
         <div>
-          <label for="createddate" class="block text-sm font-medium text-gray-700">Created Date</label>
-          <input type="date" id="createddate" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+          <label for="accountName" class="block text-sm font-medium text-gray-700">Account Name</label>
+          <input type="text" id="accountName" name="accountName" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" required>
         </div>
-        <!-- Contact -->
         <div>
           <label for="contact" class="block text-sm font-medium text-gray-700">Contact</label>
-          <input type="text" id="contact" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type">
+          <input type="text" id="contact" name="contact" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
-        <!-- Opportunity Owner -->
         <div>
-          <label for="opportunityowner" class="block text-sm font-medium text-gray-700">Opportunity Owner</label>
-          <input type="text" id="opportunityowner" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type">
+          <label for="opportunityOwner" class="block text-sm font-medium text-gray-700">Opportunity Owner</label>
+          <input type="text" id="opportunityOwner" name="opportunityOwner" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500">
         </div>
-        <!-- Comments -->
         <div>
           <label for="comments" class="block text-sm font-medium text-gray-700">Comments</label>
-          <textarea id="comments" rows="4" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500" placeholder="Type"></textarea>
+          <textarea id="comments" name="comments" rows="4" class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"></textarea>
         </div>
-        <!-- Create Opportunity Button -->
         <div class="md:col-span-2">
-         <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500">Create Opportunity</button>
+          <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500">Create Opportunity</button>
         </div>
       </form>
     </div>
   </main>
-  <footer class="bg-blue-600 h-20">
-    <div class="mx-auto sm:px-6 lg:px-8 py-4">
-        <!--Grid-->
-        <div class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-8 py-4 max-sm:max-w-sm max-sm:mx-auto gap-y-4">
-            <a href="index.html" class="flex rtl:space-x-reverse">
-                <!-- Add content if needed -->
-            </a>
-        </div>
-        <!--Grid-->
-        <div class="py-2 border-t border-gray-200">
-            <div class="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
-                <span class="text-sm text-white">2024, All rights reserved.</span>
-            </div>
-        </div>
-    </div>
-  </footer>  
+  <script>
+    document.getElementById('opportunityForm').addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const formData = {
+        opportunityName: document.getElementById('opportunityName').value.trim(),
+        opportunityStage: document.getElementById('opportunityStage').value.trim(),
+        createdDate: document.getElementById('createdDate').value.trim() || null,
+        accountName: document.getElementById('accountName').value.trim(),
+        contact: document.getElementById('contact').value.trim() || null,
+        opportunityOwner: document.getElementById('opportunityOwner').value.trim() || null,
+        comments: document.getElementById('comments').value.trim() || null,
+      };
+
+      try {
+        const response = await fetch('http://localhost:3000/opportunities', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert(result.message);
+          document.getElementById('opportunityForm').reset();
+        } else {
+          alert(`Error: ${result.message}`);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+      }
+    });
+  </script>
 </body>
 </html>
