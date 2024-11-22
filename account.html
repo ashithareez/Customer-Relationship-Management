@@ -102,16 +102,41 @@
 <a href="account_form.html" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500">Create New Account</a>
 </div>  
 </main>
-<div class="mx-auto sm:px-10 lg:px-12 py-10">
-  <div class="bg-white p-80 rounded-lg shadow-lg">
+<div class="mx-auto sm:px-10 lg:px-12 py-10"></div>
+<!-- Table to Display Accounts -->
+<div class="bg-white shadow-md rounded-lg overflow-hidden mt-6">
+  <table class="min-w-full text-left text-sm text-gray-900">
+    <thead class="bg-gray-50">
+      <tr>
+        <th class="px-4 py-2">Account Name</th>
+        <th class="px-4 py-2">Account Owner</th>
+        <th class="px-4 py-2">Contact Name</th>
+        <th class="px-4 py-2">Email Address</th>
+        <th class="px-4 py-2">Phone Number</th>
+        <th class="px-4 py-2">Company Address</th>
+        <th class="px-4 py-2">Created Date</th>
+        <th class="px-4 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="accountTableBody">
+      <!-- Rows will be dynamically inserted here -->
+    </tbody>
+  </table>
+</div>
+
+  <div class="bg-white p-60 rounded-lg shadow-lg">
+
       <div id="accountResults" class="mt-6">
           <!-- Results will appear here -->
       </div>
   </div>
 </div>
 
+
+</main>
+
 <!-- Include the external search functionality script -->
-<script src="accountsearch.js"></script>
+<script src="account_data.js"></script>
   
 </div>
 <footer class="bg-blue-600 h-20">
@@ -129,7 +154,8 @@
             </div>
         </div>
     </div>
-  </footer> 
+  </footer>
+
 </body>
 </html>
 

@@ -100,6 +100,86 @@ app.get('/accounts/search', (req, res) => {
 });
 
 
+// Get account details by ID
+app.get('/accounts/:id', (req, res) => {
+    const accountId = req.params.id;
+
+    const query = 'SELECT * FROM account WHERE account_id = ?';
+    db.query(query, [accountId], (err, results) => {
+        if (err) {
+            console.error('Error fetching account details:', err);
+            res.status(500).json({ message: 'Error fetching account details', error: err.message });
+        } else if (results.length === 0) {
+            res.status(404).json({ message: 'Account not found' });
+        } else {
+            res.status(200).json(results[0]);
+        }
+    });
+});
+
+// --- account.html all accounts display ---
+app.get('/accounts', (req, res) => {
+    const query = `
+        SELECT 
+            account_id, 
+            account_name, 
+            account_owner, 
+            contact_name, 
+            email_address, 
+            phone_number, 
+            company_address, 
+            DATE_FORMAT(created_date, '%Y-%m-%d') as created_date
+        FROM account
+    `;
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching accounts:', err.message);
+            res.status(500).json({ message: 'Error fetching accounts', error: err.message });
+            return;
+        }
+        res.json(results);
+    });
+});
+
+// -----account_detail.html -----
+
+app.put('/accounts/:id', (req, res) => {
+    const { id } = req.params;
+    const { account_name, account_owner, contact_name, email_address, phone_number, created_date, company_address } = req.body;
+
+    if (!id || id === 'null') {
+        return res.status(400).json({ message: 'Invalid account ID.' });
+    }
+
+    const query = `
+        UPDATE account
+        SET 
+            account_name = ?, 
+            account_owner = ?, 
+            contact_name = ?, 
+            email_address = ?, 
+            phone_number = ?, 
+            created_date = ?, 
+            company_address = ?
+        WHERE account_id = ?
+    `;
+
+    db.query(query, [account_name, account_owner, contact_name, email_address, phone_number, created_date, company_address, id], (err, results) => {
+        if (err) {
+            console.error('Error updating account:', err.message);
+            return res.status(500).json({ message: 'Error updating account', error: err.message });
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'Account not found.' });
+        }
+
+        res.json({ message: 'Account updated successfully.' });
+    });
+});
+
+
 
 // ====== Contact Routes ======
 
