@@ -252,6 +252,90 @@ app.get('/contacts/search', (req, res) => {
     });
 });
 
+// Get contact details by ID
+app.get('/contacts/:id', (req, res) => {
+    const contactId = req.params.id;
+
+    const query = 'SELECT * FROM contact WHERE contact_id = ?';
+    db.query(query, [contactId], (err, results) => {
+        if (err) {
+            console.error('Error fetching contact details:', err);
+            res.status(500).json({ message: 'Error fetching contact details', error: err.message });
+        } else if (results.length === 0) {
+            res.status(404).json({ message: 'Contact not found' });
+        } else {
+            res.status(200).json(results[0]);
+        }
+    });
+});
+
+// --- contact.html all contacts display ---
+app.get('/contacts', (req, res) => {
+    const query = `
+        SELECT 
+            contact_id, 
+            contact_name,
+            account_name, 
+            contact_owner, 
+            title, 
+            email_address, 
+            phone_number, 
+            company_address, 
+            comments,
+            DATE_FORMAT(created_date, '%Y-%m-%d') as created_date
+        FROM contact
+    `;
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching contacts:', err.message);
+            res.status(500).json({ message: 'Error fetching contacts', error: err.message });
+            return;
+        }
+        res.json(results);
+    });
+});
+
+// -----contact_detail.html -----
+
+app.put('/contacts/:id', (req, res) => {
+    const { id } = req.params;
+    const { contact_name, account_name, contact_owner, title, email_address, phone_number, created_date, company_address, comments } = req.body;
+
+    if (!id || id === 'null') {
+        return res.status(400).json({ message: 'Invalid contact ID.' });
+    }
+
+    const query = `
+        UPDATE contact
+        SET 
+            contact_name = ?,
+            account_name = ?, 
+            contact_owner = ?, 
+            title = ?, 
+            email_address = ?, 
+            phone_number = ?, 
+            created_date = ?, 
+            company_address = ?,
+            comments = ?
+        WHERE contact_id = ?
+    `;
+
+    db.query(query, [contact_name, account_name, contact_owner, title, email_address, phone_number, created_date, company_address, comments, id], (err, results) => {
+        if (err) {
+            console.error('Error updating contact:', err.message);
+            return res.status(500).json({ message: 'Error updating contact', error: err.message });
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'Contact not found.' });
+        }
+
+        res.json({ message: 'Contact updated successfully.' });
+    });
+});
+
+
 // ====== Opportunity Routes ======
 
 app.post('/opportunities', (req, res) => {
