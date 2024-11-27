@@ -74,6 +74,7 @@ app.post('/api/accounts', (req, res) => {
     });
 });
 
+// getting data from database for search functionality 
 app.get('/accounts/search', (req, res) => {
     const searchQuery = req.query.query;
 
@@ -226,7 +227,7 @@ app.post('/contacts', (req, res) => {
         res.status(201).json({ message: 'Contact created successfully', result });
     });
 });
-
+// getting data from database for search functionality 
 app.get('/contacts/search', (req, res) => {
     const searchQuery = req.query.query;
 
