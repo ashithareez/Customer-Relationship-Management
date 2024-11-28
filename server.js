@@ -459,6 +459,89 @@ app.get('/leads/search', (req, res) => {
     });
 });
 
+// Get lead details by ID
+app.get('/leads/:id', (req, res) => {
+    const leadId = req.params.id;
+
+    const query = 'SELECT * FROM lead WHERE lead_id = ?';
+    db.query(query, [leadId], (err, results) => {
+        if (err) {
+            console.error('Error fetching lead details:', err);
+            res.status(500).json({ message: 'Error fetching lead details', error: err.message });
+        } else if (results.length === 0) {
+            res.status(404).json({ message: 'lead not found' });
+        } else {
+            res.status(200).json(results[0]);
+        }
+    });
+});
+
+// --- Leads.html all leads display ---
+app.get('/leads', (req, res) => {
+    const query = `
+        SELECT 
+            lead_id, 
+            lead_name,
+            account_name, 
+            lead_owner, 
+            contact_name, 
+            email_address, 
+            phone_number, 
+            company_name, 
+            title,
+            DATE_FORMAT(created_date, '%Y-%m-%d') as created_date
+        FROM account
+    `;
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching leads:', err.message);
+            res.status(500).json({ message: 'Error fetching leads', error: err.message });
+            return;
+        }
+        res.json(results);
+    });
+});
+
+// -----lead_detail.html -----
+
+app.put('/leads/:id', (req, res) => {
+    const { id } = req.params;
+    const { lead_name, account_name, contact_name, lead_owner, phone_number, company_name, title, email_address, created_date } = req.body;
+
+    if (!id || id === 'null') {
+        return res.status(400).json({ message: 'Invalid lead ID.' });
+    }
+
+    const query = `
+        UPDATE account
+        SET 
+            lead_name = ?, 
+            account_name = ?, 
+            lead_owner = ?, 
+            contact_name = ?, 
+            email_address = ?, 
+            phone_number = ?, 
+            title = ?, 
+            created_date = ?, 
+            company_name = ?
+        WHERE lead_id = ?
+    `;
+
+    db.query(query, [lead_name, account_name, contact_name, lead_owner, phone_number, company_name, title, email_address, created_date, id], (err, results) => {
+        if (err) {
+            console.error('Error updating lead:', err.message);
+            return res.status(500).json({ message: 'Error updating lead', error: err.message });
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'lead not found.' });
+        }
+
+        res.json({ message: 'Lead updated successfully.' });
+    });
+});
+
 
 
 // Start the server
