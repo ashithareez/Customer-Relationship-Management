@@ -387,6 +387,86 @@ app.get('/opportunities/search', (req, res) => {
     });
 });
 
+// Get opportunity details by ID
+app.get('/opportunities/:id', (req, res) => {
+    const opportunityId = req.params.id;
+
+    const query = 'SELECT * FROM opportunity WHERE opportunity_id = ?';
+    db.query(query, [opportunityId], (err, results) => {
+        if (err) {
+            console.error('Error fetching opportunity details:', err);
+            res.status(500).json({ message: 'Error fetching opportunity details', error: err.message });
+        } else if (results.length === 0) {
+            res.status(404).json({ message: 'Opportunity not found' });
+        } else {
+            res.status(200).json(results[0]);
+        }
+    });
+});
+
+// --- opportunity.html all opportunity display ---
+app.get('/opportunities', (req, res) => {
+    const query = `
+        SELECT 
+            opportunity_id, 
+            opportunity_name, 
+            opportunity_stage,
+            account_name,
+            opportunity_owner, 
+            contact, 
+            comments, 
+            DATE_FORMAT(created_date, '%Y-%m-%d') as created_date
+        FROM opportunity
+    `;
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching opportunities:', err.message);
+            res.status(500).json({ message: 'Error fetching opportunities', error: err.message });
+            return;
+        }
+        res.json(results);
+    });
+});
+
+// -----opportunity_detail.html -----
+
+app.put('/opportunities/:id', (req, res) => {
+    const { id } = req.params;
+    const { opportunity_name, opportunity_stage, account_name, opportunity_owner, contact, created_date, comments } = req.body;
+
+    if (!id || id === 'null') {
+        return res.status(400).json({ message: 'Invalid opportunity ID.' });
+    }
+
+    const query = `
+        UPDATE opportunity
+        SET 
+            opportunity_name = ?, 
+            opportunity_stage = ?,
+            opportunity_owner = ?,
+            account_name = ?, 
+            contact = ?, 
+            created_date = ?, 
+            comments = ?
+        WHERE opportunity_id = ?
+    `;
+
+    db.query(query, [opportunity_name, opportunity_stage, account_name, opportunity_owner, contact, created_date, comments, id], (err, results) => {
+        if (err) {
+            console.error('Error updating opportunity:', err.message);
+            return res.status(500).json({ message: 'Error updating opportunity', error: err.message });
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'Opportunity not found.' });
+        }
+
+        res.json({ message: 'Opportunity updated successfully.' });
+    });
+});
+
+
 
 // ====== Lead Routes ======
 
