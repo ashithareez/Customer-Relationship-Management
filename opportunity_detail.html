@@ -4,39 +4,37 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="keywords" content="CRM">
-<title>Lead Detail</title>
+<title>Opportunity Details</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  async function fetchLeadDetails() {
-    const leadId = new URLSearchParams(window.location.search).get('leadId'); // Correct query param
+  async function fetchOpportunityDetails() {
+    const opportunityId = new URLSearchParams(window.location.search).get('opportunityId'); // Correct query param
 
-    if (!leadId) {
-      console.error('No lead ID provided in the URL.');
-      alert('Invalid lead. Please go back and try again.');
+    if (!opportunityId) {
+      console.error('No opportunity ID provided in the URL.');
+      alert('Invalid opportunity. Please go back and try again.');
       return;
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/leads/${leadId}`);
+        const response = await fetch(`http://localhost:3000/opportunities/${opportunityId}`);
         if (!response.ok) {
-            throw new Error(`Failed to fetch lead details: ${response.statusText}`);
+            throw new Error(`Failed to fetch opportunity details: ${response.statusText}`);
         }
 
         const data = await response.json();
 
       // Populate fields
-        document.getElementById('leadName').innerText = data.lead_name || 'N/A';
-        document.getElementById('leadOwner').innerText = data.lead_owner || 'N/A';
-        document.getElementById('accountName').innerText = data.account_name || 'N/A';
-        document.getElementById('companyName').innerText = data.company_name || 'N/A';
-        document.getElementById('contactName').innerText = data.contact_name || 'N/A';
-        document.getElementById('emailAddress').innerText = data.email_address || 'N/A';
-        document.getElementById('phoneNumber').innerText = data.phone_number || 'N/A';
-        document.getElementById('createdDate').innerText = data.created_date || 'N/A';
-        document.getElementById('title').innerText = data.title || 'N/A';
+      document.getElementById('opportunityName').innerText = data.opportunity_name || 'N/A';
+      document.getElementById('opportunityStage').innerText = data.opportunity_stage || 'N/A';
+      document.getElementById('createdDate').innerText = data.created_date || 'N/A';
+      document.getElementById('accountName').innerText = data.account_name || 'N/A';
+        document.getElementById('contact').innerText = data.contact || 'N/A';
+        document.getElementById('opportunityOwner').innerText = data.opportunity_owner || 'N/A';
+        document.getElementById('comments').innerText = data.comments || 'N/A';
     } catch (error) {
-        console.error('Error fetching lead details:', error);
-        alert('An error occurred while fetching lead details. Please try again.');
+        console.error('Error fetching opportunity details:', error);
+        alert('An error occurred while fetching opportunity details. Please try again.');
     }
 }
 
@@ -47,10 +45,10 @@
   }
 
   async function saveChanges() {
-      const accountId = new URLSearchParams(window.location.search).get('leadId');
+      const accountId = new URLSearchParams(window.location.search).get('opportunityId');
       
-      if (!leadId) {
-        alert('Invalid lead. Unable to save changes.');
+      if (!opportunityId) {
+        alert('Invalid opportunity. Unable to save changes.');
         return;
      }
 
@@ -59,21 +57,19 @@
     const formattedCreatedDate = rawCreatedDate.split('T')[0]; // Extract 'YYYY-MM-DD'
 
       const updatedData = {
-          lead_name: document.getElementById('leadName').innerText.trim(),
-          lead_owner: document.getElementById('leadOwner').innerText.trim(),
+          opportunity_name: document.getElementById('opportunityName').innerText.trim(),
+          opportunity_stage: document.getElementById('opportunityStage').innerText.trim(),
           account_name: document.getElementById('accountName').innerText.trim(),
-          company_name: document.getElementById('comapanyName').innerText.trim(),
-          contact_name: document.getElementById('contactName').innerText.trim(),
-          email_address: document.getElementById('emailAddress').innerText.trim(),
-          phone_number: document.getElementById('phoneNumber').innerText.trim(),
+          opportunity_owner: document.getElementById('opportunityOwner').innerText.trim(),
+          contact: document.getElementById('contact').innerText.trim(),
           created_date: formattedCreatedDate,
-          title: document.getElementById('title').innerText.trim(),
+          comments: document.getElementById('comments').innerText.trim(),
       };
 
       console.log('Updated Data:', updatedData);
 
     try {
-        const response = await fetch(`http://localhost:3000/leads/${leadId}`, {
+        const response = await fetch(`http://localhost:3000/opportunities/${opportunityId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedData),
@@ -96,7 +92,7 @@
     }
 }
 
-  document.addEventListener('DOMContentLoaded', fetchLeadDetails);
+  document.addEventListener('DOMContentLoaded', fetchOpportunityDetails);
 </script>
 </head>
 <body class="bg-gray-100">
@@ -176,46 +172,38 @@
     <div class="bg-white p-6 rounded-lg shadow-lg ">
       <div>
         <div class="px-4 sm:px-0 flex justify-between items-center">
-          <h3 class="text-lg font-semibold text-gray-900">Lead Information</h3>
+          <h3 class="text-lg font-semibold text-gray-900">Opportunity Information</h3>
           <button onclick="enableEditing()" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-500">Edit</button>
         </div>
         <div class="mt-6 border-t border-gray-100">
           <dl class="divide-y divide-gray-100">
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt class="text-sm/6 font-medium text-gray-900">Lead name</dt>
-              <dd id="leadName" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
+              <dt class="text-sm/6 font-medium text-gray-900">Opportunity Name</dt>
+              <dd id="opportunityName" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt class="text-sm/6 font-medium text-gray-900">Account Name</dt>
-              <dd id="accountName" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
+                <dt class="text-sm/6 font-medium text-gray-900">Opportunity Stage</dt>
+                <dd id="opportunityStage" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt class="text-sm/6 font-medium text-gray-900">Title</dt>
-              <dd id="title" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
+                <dt class="text-sm/6 font-medium text-gray-900">Account Name</dt>
+                <dd id="accountName" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt class="text-sm/6 font-medium text-gray-900">Company Name</dt>
-              <dd id="companyName" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
+              <dt class="text-sm/6 font-medium text-gray-900">Opportunity Owner</dt>
+              <dd id="opportunityOwner" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt class="text-sm/6 font-medium text-gray-900">Lead Owner</dt>
-              <dd id="leadOwner" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
+              <dt class="text-sm/6 font-medium text-gray-900">Contact</dt>
+              <dd id="contact" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt class="text-sm/6 font-medium text-gray-900">Created Date</dt>
-              <dd id="createdDate" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
+                <dt class="text-sm/6 font-medium text-gray-900">Created Date</dt>
+                <dd id="createdDate" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
             </div>
             <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt class="text-sm/6 font-medium text-gray-900">Phone Number</dt>
-              <dd id="phoneNumber" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
-            </div>
-            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt class="text-sm/6 font-medium text-gray-900">Email Address</dt>
-              <dd id="emailAddress" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
-            </div>
-            <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt class="text-sm/6 font-medium text-gray-900">Contact Name</dt>
-              <dd id="contactName" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
+                <dt class="text-sm/6 font-medium text-gray-900">Company Address</dt>
+                <dd id="companyAddress" class="mt-1 text-sm text-gray-700 sm:col-span-2 sm:mt-0" contenteditable="false"></dd>
             </div>
           </dl>
         </div>

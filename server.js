@@ -253,6 +253,90 @@ app.get('/contacts/search', (req, res) => {
     });
 });
 
+// Get contact details by ID
+app.get('/contacts/:id', (req, res) => {
+    const contactId = req.params.id;
+
+    const query = 'SELECT * FROM contact WHERE contact_id = ?';
+    db.query(query, [contactId], (err, results) => {
+        if (err) {
+            console.error('Error fetching contact details:', err);
+            res.status(500).json({ message: 'Error fetching contact details', error: err.message });
+        } else if (results.length === 0) {
+            res.status(404).json({ message: 'Contact not found' });
+        } else {
+            res.status(200).json(results[0]);
+        }
+    });
+});
+
+// --- contact.html all contacts display ---
+app.get('/contacts', (req, res) => {
+    const query = `
+        SELECT 
+            contact_id, 
+            contact_name,
+            account_name, 
+            contact_owner, 
+            title, 
+            email_address, 
+            phone_number, 
+            company_address, 
+            comments,
+            DATE_FORMAT(created_date, '%Y-%m-%d') as created_date
+        FROM contact
+    `;
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching contacts:', err.message);
+            res.status(500).json({ message: 'Error fetching contacts', error: err.message });
+            return;
+        }
+        res.json(results);
+    });
+});
+
+// -----contact_detail.html -----
+
+app.put('/contacts/:id', (req, res) => {
+    const { id } = req.params;
+    const { contact_name, account_name, contact_owner, title, email_address, phone_number, created_date, company_address, comments } = req.body;
+
+    if (!id || id === 'null') {
+        return res.status(400).json({ message: 'Invalid contact ID.' });
+    }
+
+    const query = `
+        UPDATE contact
+        SET 
+            contact_name = ?,
+            account_name = ?, 
+            contact_owner = ?, 
+            title = ?, 
+            email_address = ?, 
+            phone_number = ?, 
+            created_date = ?, 
+            company_address = ?,
+            comments = ?
+        WHERE contact_id = ?
+    `;
+
+    db.query(query, [contact_name, account_name, contact_owner, title, email_address, phone_number, created_date, company_address, comments, id], (err, results) => {
+        if (err) {
+            console.error('Error updating contact:', err.message);
+            return res.status(500).json({ message: 'Error updating contact', error: err.message });
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'Contact not found.' });
+        }
+
+        res.json({ message: 'Contact updated successfully.' });
+    });
+});
+
+
 // ====== Opportunity Routes ======
 
 app.post('/opportunities', (req, res) => {
@@ -303,6 +387,86 @@ app.get('/opportunities/search', (req, res) => {
         res.status(200).json({ message: 'Search results fetched successfully', results });
     });
 });
+
+// Get opportunity details by ID
+app.get('/opportunities/:id', (req, res) => {
+    const opportunityId = req.params.id;
+
+    const query = 'SELECT * FROM opportunity WHERE opportunity_id = ?';
+    db.query(query, [opportunityId], (err, results) => {
+        if (err) {
+            console.error('Error fetching opportunity details:', err);
+            res.status(500).json({ message: 'Error fetching opportunity details', error: err.message });
+        } else if (results.length === 0) {
+            res.status(404).json({ message: 'Opportunity not found' });
+        } else {
+            res.status(200).json(results[0]);
+        }
+    });
+});
+
+// --- opportunity.html all opportunity display ---
+app.get('/opportunities', (req, res) => {
+    const query = `
+        SELECT 
+            opportunity_id, 
+            opportunity_name, 
+            opportunity_stage,
+            account_name,
+            opportunity_owner, 
+            contact, 
+            comments, 
+            DATE_FORMAT(created_date, '%Y-%m-%d') as created_date
+        FROM opportunity
+    `;
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching opportunities:', err.message);
+            res.status(500).json({ message: 'Error fetching opportunities', error: err.message });
+            return;
+        }
+        res.json(results);
+    });
+});
+
+// -----opportunity_detail.html -----
+
+app.put('/opportunities/:id', (req, res) => {
+    const { id } = req.params;
+    const { opportunity_name, opportunity_stage, account_name, opportunity_owner, contact, created_date, comments } = req.body;
+
+    if (!id || id === 'null') {
+        return res.status(400).json({ message: 'Invalid opportunity ID.' });
+    }
+
+    const query = `
+        UPDATE opportunity
+        SET 
+            opportunity_name = ?, 
+            opportunity_stage = ?,
+            opportunity_owner = ?,
+            account_name = ?, 
+            contact = ?, 
+            created_date = ?, 
+            comments = ?
+        WHERE opportunity_id = ?
+    `;
+
+    db.query(query, [opportunity_name, opportunity_stage, account_name, opportunity_owner, contact, created_date, comments, id], (err, results) => {
+        if (err) {
+            console.error('Error updating opportunity:', err.message);
+            return res.status(500).json({ message: 'Error updating opportunity', error: err.message });
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'Opportunity not found.' });
+        }
+
+        res.json({ message: 'Opportunity updated successfully.' });
+    });
+});
+
 
 
 // ====== Lead Routes ======
@@ -373,6 +537,89 @@ app.get('/leads/search', (req, res) => {
         }
 
         res.status(200).json({ results });
+    });
+});
+
+// Get lead details by ID
+app.get('/leads/:id', (req, res) => {
+    const leadId = req.params.id;
+
+    const query = 'SELECT * FROM lead WHERE lead_id = ?';
+    db.query(query, [leadId], (err, results) => {
+        if (err) {
+            console.error('Error fetching lead details:', err);
+            res.status(500).json({ message: 'Error fetching lead details', error: err.message });
+        } else if (results.length === 0) {
+            res.status(404).json({ message: 'lead not found' });
+        } else {
+            res.status(200).json(results[0]);
+        }
+    });
+});
+
+// --- Leads.html all leads display ---
+app.get('/leads', (req, res) => {
+    const query = `
+        SELECT 
+            lead_id, 
+            lead_name,
+            account_name, 
+            lead_owner, 
+            contact_name, 
+            email_address, 
+            phone_number, 
+            company_name, 
+            title,
+            DATE_FORMAT(created_date, '%Y-%m-%d') as created_date
+        FROM account
+    `;
+
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching leads:', err.message);
+            res.status(500).json({ message: 'Error fetching leads', error: err.message });
+            return;
+        }
+        res.json(results);
+    });
+});
+
+// -----lead_detail.html -----
+
+app.put('/leads/:id', (req, res) => {
+    const { id } = req.params;
+    const { lead_name, account_name, contact_name, lead_owner, phone_number, company_name, title, email_address, created_date } = req.body;
+
+    if (!id || id === 'null') {
+        return res.status(400).json({ message: 'Invalid lead ID.' });
+    }
+
+    const query = `
+        UPDATE account
+        SET 
+            lead_name = ?, 
+            account_name = ?, 
+            lead_owner = ?, 
+            contact_name = ?, 
+            email_address = ?, 
+            phone_number = ?, 
+            title = ?, 
+            created_date = ?, 
+            company_name = ?
+        WHERE lead_id = ?
+    `;
+
+    db.query(query, [lead_name, account_name, contact_name, lead_owner, phone_number, company_name, title, email_address, created_date, id], (err, results) => {
+        if (err) {
+            console.error('Error updating lead:', err.message);
+            return res.status(500).json({ message: 'Error updating lead', error: err.message });
+        }
+
+        if (results.affectedRows === 0) {
+            return res.status(404).json({ message: 'lead not found.' });
+        }
+
+        res.json({ message: 'Lead updated successfully.' });
     });
 });
 
