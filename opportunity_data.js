@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Fetch and display all accounts on page load
+    // Fetch and display all opportunity on page load
     async function fetchOpportunities() {
         try {
         const response = await fetch('http://localhost:3000/opportunities');

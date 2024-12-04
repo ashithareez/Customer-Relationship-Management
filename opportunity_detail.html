@@ -28,11 +28,11 @@
         // Populate the fields
         document.getElementById('opportunityName').innerText = data.opportunity_name || 'N/A';
         document.getElementById('opportunityStage').innerText = data.opportunity_stage || 'N/A';
-        document.getElementById('accountName').innerText = data.account_name || 'N/A';
         document.getElementById('opportunityOwner').innerText = data.opportunity_owner || 'N/A';
+        document.getElementById('accountName').innerText = data.account_name || 'N/A';
         document.getElementById('contact_name').innerText = data.contact_name || 'N/A';
-        document.getElementById('createdDate').innerText = data.created_date || 'N/A';
         document.getElementById('comments').innerText = data.comments || 'N/A';
+        document.getElementById('createdDate').innerText = data.created_date || 'N/A';
     } catch (error) {
         console.error('Error fetching opportunity details:', error);
         alert('An error occurred while fetching opportunity details. Please try again.');
@@ -53,15 +53,20 @@
         return;
      }
 
+        // Retrieve and format the date
+    const rawCreatedDate = document.getElementById('createdDate').innerText.trim();
+    const formattedCreatedDate = rawCreatedDate.split('T')[0]; // Extract 'YYYY-MM-DD'
+
      const updatedData = {
         opportunity_name: document.getElementById('opportunityName').innerText.trim(),
         opportunity_stage: document.getElementById('opportunityStage').innerText.trim(),
-        account_name: document.getElementById('accountName').innerText.trim(),
         opportunity_owner: document.getElementById('opportunityOwner').innerText.trim(),
+        account_name: document.getElementById('accountName').innerText.trim(),
         contact_name: document.getElementById('contact_name').innerText.trim(),
-        created_date: document.getElementById('createdDate').innerText.trim(),
-        comments: document.getElementById('comments').innerText.trim()
+        comments: document.getElementById('comments').innerText.trim(),
+        created_date: formattedCreatedDate,
     };
+    console.log('Updated Data:', updatedData);
 
     try {
         const response = await fetch(`http://localhost:3000/opportunities/${opportunityId}`, {
@@ -72,14 +77,17 @@
             body: JSON.stringify(updatedData)
         });
 
-        if (!response.ok) {
-            throw new Error('Failed to update opportunity');
-        }
+        const result = await response.json();
+        console.log('Save Response:', result);
 
-        alert('Changes saved successfully!');
-        const editableFields = document.querySelectorAll('[contenteditable]');
-        editableFields.forEach(field => field.setAttribute('contenteditable', 'false'));
-        document.getElementById('saveButton').classList.add('hidden');
+      if (response.ok) {
+          alert('Changes saved successfully!');
+          const editableFields = document.querySelectorAll('[contenteditable]');
+          editableFields.forEach(field => field.removeAttribute('contenteditable'));
+          document.getElementById('saveButton').classList.add('hidden');
+      } else {
+        throw new Error(result.message || 'Failed to save changes.');
+        }
     } catch (error) {
         console.error('Error saving changes:', error);
         alert('Failed to save changes. Please try again.');

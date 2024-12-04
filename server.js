@@ -343,18 +343,21 @@ app.post('/opportunities', (req, res) => {
   const {
     opportunityName,
     opportunityStage,
-    createdDate,
+    opportunityOwner,
     accountName,
     contact,
-    opportunityOwner,
     comments,
+    createdDate,
   } = req.body;
 
+  // Log the incoming data for debugging
+  console.log('Received data for opportunity:', req.body);
+
   const query = `
-    INSERT INTO opportunity (opportunity_name, opportunity_stage, created_date, account_name, contact_name, opportunity_owner, comments)
+    INSERT INTO \`opportunity\' (opportunity_name, opportunity_stage, opportunity_owner, account_name, contact_name, comments, created_date)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
-  const values = [opportunityName, opportunityStage, createdDate, accountName, contact, opportunityOwner, comments];
+  const values = [opportunityName, opportunityStage, opportunityOwner, accountName, contact, comments, createdDate];
 
   db.query(query, values, (err, result) => {
     if (err) {
@@ -393,34 +396,18 @@ app.get('/opportunities/:id', (req, res) => {
     const opportunityId = req.params.id;
     console.log('Fetching opportunity with ID:', opportunityId); // Add this log
 
-    const query = `
-        SELECT 
-            opportunity_id,
-            opportunity_name,
-            opportunity_stage,
-            account_name,
-            opportunity_owner,
-            contact_name,
-            comments,
-            DATE_FORMAT(created_date, '%Y-%m-%d') as created_date
-        FROM opportunity 
-        WHERE opportunity_id = ?
-    `;
+    const query = 'SELECT * FROM opportunity WHERE opportunity_id = ?';
+    
 
     db.query(query, [opportunityId], (err, results) => {
         if (err) {
             console.error('Error fetching opportunity details:', err);
             res.status(500).json({ message: 'Error fetching opportunity details', error: err.message });
-            return;
-        }
-        
-        if (results.length === 0) {
+        } else if (results.length === 0) {
             res.status(404).json({ message: 'Opportunity not found' });
-            return;
+        } else {
+            res.status(200).json(results[0]);
         }
-        
-        console.log('Opportunity details found:', results[0]); // Add this log
-        res.status(200).json(results[0]);
     });
 });
 
@@ -431,8 +418,8 @@ app.get('/opportunities', (req, res) => {
             opportunity_id, 
             opportunity_name, 
             opportunity_stage,
-            account_name,
             opportunity_owner, 
+            account_name,
             contact_name, 
             comments, 
             DATE_FORMAT(created_date, '%Y-%m-%d') as created_date
@@ -453,7 +440,7 @@ app.get('/opportunities', (req, res) => {
 
 app.put('/opportunities/:id', (req, res) => {
     const { id } = req.params;
-    const { opportunity_name, opportunity_stage, account_name, opportunity_owner, contact_name, created_date, comments } = req.body;
+    const { opportunity_name, opportunity_stage, opportunity_owner, account_name, contact_name, comments, created_date, } = req.body;
 
     if (!id || id === 'null') {
         return res.status(400).json({ message: 'Invalid opportunity ID.' });
@@ -467,12 +454,12 @@ app.put('/opportunities/:id', (req, res) => {
             opportunity_owner = ?,
             account_name = ?, 
             contact_name = ?, 
-            created_date = ?, 
-            comments = ?
+            comments = ?,
+            created_date = ?
         WHERE opportunity_id = ?
     `;
 
-    db.query(query, [opportunity_name, opportunity_stage, account_name, opportunity_owner, contact_name, created_date, comments, id], (err, results) => {
+    db.query(query, [opportunity_name, opportunity_stage, opportunity_owner, account_name, contact_name, comments, created_date, id], (err, results) => {
         if (err) {
             console.error('Error updating opportunity:', err.message);
             return res.status(500).json({ message: 'Error updating opportunity', error: err.message });
