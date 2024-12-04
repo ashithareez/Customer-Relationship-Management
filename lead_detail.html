@@ -47,7 +47,7 @@
   }
 
   async function saveChanges() {
-      const accountId = new URLSearchParams(window.location.search).get('leadId');
+      const leadId = new URLSearchParams(window.location.search).get('leadId');
       
       if (!leadId) {
         alert('Invalid lead. Unable to save changes.');
