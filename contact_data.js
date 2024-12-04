@@ -22,16 +22,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             row.innerHTML = `
                 <td class="px-4 py-2">${contact.contact_name}</td>
-                <td class="px-4 py-2">${contact.title}</td>
                 <td class="px-4 py-2">${contact.account_name}</td>
                 <td class="px-4 py-2">${contact.contact_owner}</td>
+                <td class="px-4 py-2">${contact.title}</td>
                 <td class="px-4 py-2">${contact.email_address}</td>
                 <td class="px-4 py-2">${contact.phone_number}</td>
                 <td class="px-4 py-2">${contact.company_address}</td>
                 <td class="px-4 py-2">${contact.comments}</td>
                 <td class="px-4 py-2">${contact.created_date}</td>
                 <td class="px-4 py-2">
-                    <a href="account_detail.html?accountId=${contact.contact_id}" 
+                    <a href="contact_detail.html?contactId=${contact.contact_id}" 
                        class="text-blue-600 hover:underline">View</a>
                 </td>
             `;

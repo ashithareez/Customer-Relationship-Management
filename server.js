@@ -391,17 +391,36 @@ app.get('/opportunities/search', (req, res) => {
 // Get opportunity details by ID
 app.get('/opportunities/:id', (req, res) => {
     const opportunityId = req.params.id;
+    console.log('Fetching opportunity with ID:', opportunityId); // Add this log
 
-    const query = 'SELECT * FROM opportunity WHERE opportunity_id = ?';
+    const query = `
+        SELECT 
+            opportunity_id,
+            opportunity_name,
+            opportunity_stage,
+            account_name,
+            opportunity_owner,
+            contact_name,
+            comments,
+            DATE_FORMAT(created_date, '%Y-%m-%d') as created_date
+        FROM opportunity 
+        WHERE opportunity_id = ?
+    `;
+
     db.query(query, [opportunityId], (err, results) => {
         if (err) {
             console.error('Error fetching opportunity details:', err);
             res.status(500).json({ message: 'Error fetching opportunity details', error: err.message });
-        } else if (results.length === 0) {
-            res.status(404).json({ message: 'Opportunity not found' });
-        } else {
-            res.status(200).json(results[0]);
+            return;
         }
+        
+        if (results.length === 0) {
+            res.status(404).json({ message: 'Opportunity not found' });
+            return;
+        }
+        
+        console.log('Opportunity details found:', results[0]); // Add this log
+        res.status(200).json(results[0]);
     });
 });
 
@@ -414,7 +433,7 @@ app.get('/opportunities', (req, res) => {
             opportunity_stage,
             account_name,
             opportunity_owner, 
-            contact, 
+            contact_name, 
             comments, 
             DATE_FORMAT(created_date, '%Y-%m-%d') as created_date
         FROM opportunity
@@ -434,7 +453,7 @@ app.get('/opportunities', (req, res) => {
 
 app.put('/opportunities/:id', (req, res) => {
     const { id } = req.params;
-    const { opportunity_name, opportunity_stage, account_name, opportunity_owner, contact, created_date, comments } = req.body;
+    const { opportunity_name, opportunity_stage, account_name, opportunity_owner, contact_name, created_date, comments } = req.body;
 
     if (!id || id === 'null') {
         return res.status(400).json({ message: 'Invalid opportunity ID.' });
@@ -447,13 +466,13 @@ app.put('/opportunities/:id', (req, res) => {
             opportunity_stage = ?,
             opportunity_owner = ?,
             account_name = ?, 
-            contact = ?, 
+            contact_name = ?, 
             created_date = ?, 
             comments = ?
         WHERE opportunity_id = ?
     `;
 
-    db.query(query, [opportunity_name, opportunity_stage, account_name, opportunity_owner, contact, created_date, comments, id], (err, results) => {
+    db.query(query, [opportunity_name, opportunity_stage, account_name, opportunity_owner, contact_name, created_date, comments, id], (err, results) => {
         if (err) {
             console.error('Error updating opportunity:', err.message);
             return res.status(500).json({ message: 'Error updating opportunity', error: err.message });
@@ -544,13 +563,13 @@ app.get('/leads/search', (req, res) => {
 app.get('/leads/:id', (req, res) => {
     const leadId = req.params.id;
 
-    const query = 'SELECT * FROM lead WHERE lead_id = ?';
+    const query = 'SELECT * FROM `lead` WHERE lead_id = ?';
     db.query(query, [leadId], (err, results) => {
         if (err) {
             console.error('Error fetching lead details:', err);
             res.status(500).json({ message: 'Error fetching lead details', error: err.message });
         } else if (results.length === 0) {
-            res.status(404).json({ message: 'lead not found' });
+            res.status(404).json({ message: 'Lead not found' });
         } else {
             res.status(200).json(results[0]);
         }
@@ -561,17 +580,17 @@ app.get('/leads/:id', (req, res) => {
 app.get('/leads', (req, res) => {
     const query = `
         SELECT 
-            lead_id, 
-            lead_name,
-            account_name, 
-            lead_owner, 
-            contact_name, 
-            email_address, 
-            phone_number, 
-            company_name, 
-            title,
-            DATE_FORMAT(created_date, '%Y-%m-%d') as created_date
-        FROM account
+            \`lead_id\`, 
+            \`lead_name\`,
+            \`account_name\`, 
+            \`lead_owner\`, 
+            \`contact_name\`, 
+            \`email_address\`, 
+            \`phone_number\`, 
+            \`company_name\`, 
+            \`title\`,
+            DATE_FORMAT(\`created_date\`, '%Y-%m-%d') as created_date
+        FROM \`lead\`
     `;
 
     db.query(query, (err, results) => {
@@ -580,6 +599,7 @@ app.get('/leads', (req, res) => {
             res.status(500).json({ message: 'Error fetching leads', error: err.message });
             return;
         }
+        console.log('Leads fetched successfully:', results); // Add this log
         res.json(results);
     });
 });
@@ -588,35 +608,74 @@ app.get('/leads', (req, res) => {
 
 app.put('/leads/:id', (req, res) => {
     const { id } = req.params;
-    const { lead_name, account_name, contact_name, lead_owner, phone_number, company_name, title, email_address, created_date } = req.body;
+    const { 
+        lead_name, 
+        account_name,
+        company_name, 
+        lead_owner, 
+        title, 
+        email_address, 
+        phone_number,
+        contact_name,  
+        created_date 
+    } = req.body;
+
+    console.log('Received data:', {
+        id,
+        lead_name,
+        account_name,
+        lead_owner,
+        contact_name,
+        email_address,
+        phone_number,
+        company_name,
+        title,
+        created_date,
+    });
 
     if (!id || id === 'null') {
         return res.status(400).json({ message: 'Invalid lead ID.' });
     }
 
     const query = `
-        UPDATE account
+        UPDATE \`lead\`
         SET 
-            lead_name = ?, 
-            account_name = ?, 
-            lead_owner = ?, 
-            contact_name = ?, 
-            email_address = ?, 
-            phone_number = ?, 
-            title = ?, 
-            created_date = ?, 
-            company_name = ?
+            lead_name = ?,
+            account_name = ?,
+            lead_owner = ?,
+            contact_name = ?,
+            email_address = ?,
+            phone_number = ?,
+            company_name = ?,
+            title = ?,
+            created_date = ?
         WHERE lead_id = ?
     `;
 
-    db.query(query, [lead_name, account_name, contact_name, lead_owner, phone_number, company_name, title, email_address, created_date, id], (err, results) => {
+    const values = [
+        lead_name,
+        account_name,
+        lead_owner,
+        contact_name,
+        email_address,
+        phone_number,
+        company_name,
+        title,
+        created_date,
+        id
+    ];
+
+    console.log('Executing query:', query);
+    console.log('With values:', values);
+
+    db.query(query, values, (err, results) => {
         if (err) {
             console.error('Error updating lead:', err.message);
             return res.status(500).json({ message: 'Error updating lead', error: err.message });
         }
 
         if (results.affectedRows === 0) {
-            return res.status(404).json({ message: 'lead not found.' });
+            return res.status(404).json({ message: 'Lead not found.' });
         }
 
         res.json({ message: 'Lead updated successfully.' });
@@ -625,8 +684,13 @@ app.put('/leads/:id', (req, res) => {
 
 
 
+
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
+
+function viewContact(contactId) {
+  window.location.href = `contact_detail.html?contactId=${contactId}`;
+}
 

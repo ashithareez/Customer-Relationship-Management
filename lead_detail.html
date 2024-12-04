@@ -60,14 +60,15 @@
 
       const updatedData = {
           lead_name: document.getElementById('leadName').innerText.trim(),
-          lead_owner: document.getElementById('leadOwner').innerText.trim(),
           account_name: document.getElementById('accountName').innerText.trim(),
           company_name: document.getElementById('comapanyName').innerText.trim(),
-          contact_name: document.getElementById('contactName').innerText.trim(),
+          lead_owner: document.getElementById('leadOwner').innerText.trim(),
+          title: document.getElementById('title').innerText.trim(),
           email_address: document.getElementById('emailAddress').innerText.trim(),
           phone_number: document.getElementById('phoneNumber').innerText.trim(),
+          contact_name: document.getElementById('contactName').innerText.trim(),
           created_date: formattedCreatedDate,
-          title: document.getElementById('title').innerText.trim(),
+          
       };
 
       console.log('Updated Data:', updatedData);
