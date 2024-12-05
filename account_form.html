@@ -157,6 +157,7 @@
               if (response.ok) {
                   alert(result.message); // Show success message
                   document.getElementById('accountForm').reset(); // Reset the form
+                  // window.location.href = 'success.html'; 
               } else {
                   console.error('Error response:', result);
                   alert(`Error: ${result.message}`);

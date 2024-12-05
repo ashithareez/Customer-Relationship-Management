@@ -682,7 +682,42 @@ app.put('/leads/:id', (req, res) => {
     });
 });
 
+// Add login route
+app.post('/login', (req, res) => {
+    const { email_address, password } = req.body;
 
+    if (!email_address || !password) {
+        return res.status(400).json({ message: 'Email address and password are required.' });
+    }
+
+    // Query the database for the user
+    const query = 'SELECT * FROM users WHERE email_address = ?';
+    db.query(query, [email_address], (err, results) => {
+        if (err) {
+            console.error('Error fetching user:', err);
+            return res.status(500).json({ message: 'Error during authentication', error: err.message });
+        }
+
+        if (results.length === 0) {
+            return res.status(401).json({ message: 'Invalid credentials.' });
+        }
+
+        // Compare the provided password with the hashed password in the database
+        const user = results[0];
+        bcrypt.compare(password, user.password, (err, match) => {
+            if (err) {
+                console.error('Error comparing passwords:', err);
+                return res.status(500).json({ message: 'Error during authentication', error: err.message });
+            }
+
+            if (match) {
+                res.status(200).json({ message: 'Login successful', user_id: user.user_id, email_address: user.email_address });
+            } else {
+                res.status(401).json({ message: 'Invalid credentials.' });
+            }
+        });
+    });
+});
 
 
 // Start the server
