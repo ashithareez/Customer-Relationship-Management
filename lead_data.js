@@ -61,53 +61,94 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-    // Fetch leads on page load
-    fetchLeads();
+    // Check if we're on the lead detail page
+    const isDetailPage = window.location.pathname.includes('lead_detail.html');
+    
+    if (isDetailPage) {
+        console.log('On lead detail page'); // Debug log
 
-    // Add event listener for the save button
-    const saveButton = document.getElementById('saveButton');
-    if (saveButton) {
-        saveButton.addEventListener('click', async (e) => {
-            e.preventDefault();
+        // Add click handler for the edit button
+        const editButton = document.querySelector('button[onclick="enableEditing()"]');
+        if (editButton) {
+            editButton.addEventListener('click', () => {
+                const editableFields = document.querySelectorAll('[contenteditable]');
+                editableFields.forEach(field => field.setAttribute('contenteditable', 'true'));
+                document.getElementById('saveButton').classList.remove('hidden');
+            });
+        }
 
-            const urlParams = new URLSearchParams(window.location.search);
-            const leadId = urlParams.get('leadId');
+        // Add click handler for the save button
+        const saveButton = document.getElementById('saveButton');
+        if (saveButton) {
+            console.log('Save button found'); // Debug log
+            
+            saveButton.addEventListener('click', async () => {
+                console.log('Save button clicked'); // Debug log
+                
+                const leadId = new URLSearchParams(window.location.search).get('leadId');
+                
+                if (!leadId) {
+                    alert('Invalid Lead ID.');
+                    return;
+                }
 
-            if (!leadId) {
-                alert('Invalid Lead ID.');
-                return;
-            }
+                try {
+                    // Get the date value
+                    const dateValue = document.getElementById('createdDate').innerText.trim();
+                    
+                    // Function to format date to YYYY-MM-DD
+                    function formatDate(dateString) {
+                        const date = new Date(dateString);
+                        const year = date.getFullYear();
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const day = String(date.getDate()).padStart(2, '0');
+                        return `${year}-${month}-${day}`;
+                    }
 
-            try {
-                const updatedLead = {
-                    lead_name: document.getElementById('lead_name').value.trim(),
-                    account_name: document.getElementById('account_name').value.trim(),
-                    company_name: document.getElementById('company_name').value.trim(),
-                    lead_owner: document.getElementById('lead_owner').value.trim(),
-                    title: document.getElementById('title').value.trim(),
-                    email_address: document.getElementById('email_address').value.trim(),
-                    phone_number: document.getElementById('phone_number').value.trim(),
-                    contact_name: document.getElementById('contact_name').value.trim(),
-                    created_date: document.getElementById('created_date').value.trim(),
-                };
+                    const updatedLead = {
+                        lead_name: document.getElementById('leadName').innerText.trim(),
+                        account_name: document.getElementById('accountName').innerText.trim(),
+                        company_name: document.getElementById('companyName').innerText.trim(),
+                        lead_owner: document.getElementById('leadOwner').innerText.trim(),
+                        title: document.getElementById('title').innerText.trim(),
+                        email_address: document.getElementById('emailAddress').innerText.trim(),
+                        phone_number: document.getElementById('phoneNumber').innerText.trim(),
+                        contact_name: document.getElementById('contactName').innerText.trim(),
+                        created_date: formatDate(dateValue)  // Use the custom format function
+                    };
 
-                const response = await fetch(`http://localhost:3000/leads/${leadId}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(updatedLead),
-                });
+                    console.log('Formatted date:', updatedLead.created_date); // Debug log
+                    console.log('Sending updated data:', updatedLead); // Debug log
 
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const response = await fetch(`http://localhost:3000/leads/${leadId}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(updatedLead)
+                    });
 
-                alert('Lead updated successfully!');
-                window.location.href = 'leads.html'; // Redirect back to leads list
-            } catch (error) {
-                console.error('Error updating lead:', error);
-                alert('Error updating lead. Please try again.');
-            }
-        });
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || 'Failed to update lead');
+                    }
+
+                    alert('Lead updated successfully!');
+                    
+                    // Disable editing after successful save
+                    const editableFields = document.querySelectorAll('[contenteditable]');
+                    editableFields.forEach(field => field.setAttribute('contenteditable', 'false'));
+                    saveButton.classList.add('hidden');
+
+                } catch (error) {
+                    console.error('Error updating lead:', error);
+                    alert('Error updating lead. Please try again.');
+                }
+            });
+        } else {
+            console.error('Save button not found'); // Debug log
+        }
     } else {
-        console.error('Save button not found in the DOM.');
+        // We're on the leads list page, fetch and display leads
+        fetchLeads();
     }
 });
 

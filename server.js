@@ -345,7 +345,7 @@ app.post('/opportunities', (req, res) => {
     opportunityStage,
     opportunityOwner,
     accountName,
-    contact,
+    contactName,
     comments,
     createdDate,
   } = req.body;
@@ -354,10 +354,10 @@ app.post('/opportunities', (req, res) => {
   console.log('Received data for opportunity:', req.body);
 
   const query = `
-    INSERT INTO \`opportunity\' (opportunity_name, opportunity_stage, opportunity_owner, account_name, contact_name, comments, created_date)
+    INSERT INTO \`opportunity\` (opportunity_name, opportunity_stage, opportunity_owner, account_name, contact_name, comments, created_date)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
-  const values = [opportunityName, opportunityStage, opportunityOwner, accountName, contact, comments, createdDate];
+  const values = [opportunityName, opportunityStage, opportunityOwner, accountName, contactName, comments, createdDate];
 
   db.query(query, values, (err, result) => {
     if (err) {
@@ -394,20 +394,24 @@ app.get('/opportunities/search', (req, res) => {
 // Get opportunity details by ID
 app.get('/opportunities/:id', (req, res) => {
     const opportunityId = req.params.id;
-    console.log('Fetching opportunity with ID:', opportunityId); // Add this log
+    console.log('Fetching opportunity with ID:', opportunityId);
 
     const query = 'SELECT * FROM opportunity WHERE opportunity_id = ?';
-    
-
     db.query(query, [opportunityId], (err, results) => {
         if (err) {
             console.error('Error fetching opportunity details:', err);
             res.status(500).json({ message: 'Error fetching opportunity details', error: err.message });
-        } else if (results.length === 0) {
-            res.status(404).json({ message: 'Opportunity not found' });
-        } else {
-            res.status(200).json(results[0]);
+            return;
         }
+        
+        if (results.length === 0) {
+            console.log('No opportunity found with ID:', opportunityId);
+            res.status(404).json({ message: 'Opportunity not found' });
+            return;
+        }
+        
+        console.log('Found opportunity:', results[0]);
+        res.status(200).json(results[0]);
     });
 });
 
@@ -440,11 +444,18 @@ app.get('/opportunities', (req, res) => {
 
 app.put('/opportunities/:id', (req, res) => {
     const { id } = req.params;
-    const { opportunity_name, opportunity_stage, opportunity_owner, account_name, contact_name, comments, created_date, } = req.body;
+    const { 
+        opportunity_name, 
+        opportunity_stage, 
+        opportunity_owner, 
+        account_name, 
+        contact_name, 
+        created_date, 
+        comments 
+    } = req.body;
 
-    if (!id || id === 'null') {
-        return res.status(400).json({ message: 'Invalid opportunity ID.' });
-    }
+    // Format the date to YYYY-MM-DD
+    const formattedDate = new Date(created_date).toISOString().split('T')[0];
 
     const query = `
         UPDATE opportunity
@@ -454,15 +465,29 @@ app.put('/opportunities/:id', (req, res) => {
             opportunity_owner = ?,
             account_name = ?, 
             contact_name = ?, 
-            comments = ?,
-            created_date = ?
+            created_date = ?,
+            comments = ?
         WHERE opportunity_id = ?
     `;
 
-    db.query(query, [opportunity_name, opportunity_stage, opportunity_owner, account_name, contact_name, comments, created_date, id], (err, results) => {
+    const values = [
+        opportunity_name, 
+        opportunity_stage, 
+        opportunity_owner, 
+        account_name, 
+        contact_name, 
+        formattedDate,  // Use the formatted date
+        comments, 
+        id
+    ];
+
+    db.query(query, values, (err, results) => {
         if (err) {
-            console.error('Error updating opportunity:', err.message);
-            return res.status(500).json({ message: 'Error updating opportunity', error: err.message });
+            console.error('Error updating opportunity:', err);
+            return res.status(500).json({ 
+                message: 'Error updating opportunity', 
+                error: err.message 
+            });
         }
 
         if (results.affectedRows === 0) {
@@ -597,68 +622,56 @@ app.put('/leads/:id', (req, res) => {
     const { id } = req.params;
     const { 
         lead_name, 
-        account_name,
-        company_name, 
-        lead_owner, 
-        title, 
-        email_address, 
+        account_name, 
+        company_name,
+        lead_owner,
+        title,
+        email_address,
         phone_number,
-        contact_name,  
+        contact_name,
         created_date 
     } = req.body;
 
-    console.log('Received data:', {
-        id,
-        lead_name,
-        account_name,
-        lead_owner,
-        contact_name,
-        email_address,
-        phone_number,
-        company_name,
-        title,
-        created_date,
-    });
+    console.log('Received date:', created_date); // Debug log
 
-    if (!id || id === 'null') {
-        return res.status(400).json({ message: 'Invalid lead ID.' });
-    }
-
+    // Updated the table name from 'leads' to 'lead' and added backticks
     const query = `
-        UPDATE \`lead\`
+        UPDATE \`lead\` 
         SET 
             lead_name = ?,
             account_name = ?,
+            company_name = ?,
             lead_owner = ?,
-            contact_name = ?,
+            title = ?,
             email_address = ?,
             phone_number = ?,
-            company_name = ?,
-            title = ?,
-            created_date = ?
+            contact_name = ?,
+            created_date = STR_TO_DATE(?, '%Y-%m-%d')
         WHERE lead_id = ?
     `;
 
     const values = [
         lead_name,
         account_name,
+        company_name,
         lead_owner,
-        contact_name,
+        title,
         email_address,
         phone_number,
-        company_name,
-        title,
+        contact_name,
         created_date,
         id
     ];
 
-    console.log('Executing query:', query);
-    console.log('With values:', values);
+    console.log('Query values:', values); // Debug log
 
     db.query(query, values, (err, results) => {
         if (err) {
-            console.error('Error updating lead:', err.message);
-            return res.status(500).json({ message: 'Error updating lead', error: err.message });
+            console.error('Error updating lead:', err);
+            return res.status(500).json({ 
+                message: 'Error updating lead', 
+                error: err.message 
+            });
         }
 
         if (results.affectedRows === 0) {
