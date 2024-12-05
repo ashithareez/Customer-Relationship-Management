@@ -7,7 +7,7 @@
 <title>CRM Dashboard</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100  flex flex-col min-h-screen">
   <!-- Header -->
   <header class="bg-blue-600 h-16"> <!-- Set a fixed height for the header -->
     <div class=" mx-auto sm:px-6 lg:px-8 flex items-center justify-between h-full"> <!-- Ensure the div stretches fully -->
@@ -81,7 +81,7 @@
     </div>
   </nav>
   <!-- Main Content -->
-  <main class="mx-auto sm:px-10 lg:px-12 py-10">
+  <main class="mx-auto sm:px-10 lg:px-12 py-10 flex-grow">
     <div class="bg-white p-6 rounded-lg shadow-lg ">
       <h2 class="text-2xl font-semibold mb-4">Sales Activity Dashboard User</h2>
         <p class="text-gray-700 mb-6">Sales KPIs</p>
@@ -94,9 +94,7 @@
               <h6 class="block font-sans text-base font-semibold leading-relaxed tracking-normal text-blue-gray-900 antialiased">
                 Sales Pipeline
               </h6>
-              <p class="block max-w-sm font-sans text-sm font-normal leading-normal text-gray-700 antialiased">
-                Visualize your data in a simple way 
-              </p>
+              
             </div>
           </div>
           <div class="py-6 mt-4 grid place-items-center px-2">
@@ -248,9 +246,7 @@
                 <h6 class="block font-sans text-base font-semibold leading-relaxed tracking-normal text-blue-gray-900 antialiased">
                   Leads by source
                 </h6>
-                <p class="block max-w-sm font-sans text-sm font-normal leading-normal text-gray-700 antialiased">
-                  Visualize your data in a simple way 
-                </p>
+               
               </div>
             </div>
             <div class="py-6 mt-4 grid place-items-center px-2">
@@ -289,8 +285,111 @@
         
       
           
-          <div class="h-48 bg-gray-100 border rounded-md flex items-center justify-center">Top Customers</div>
+        <div class="relative flex flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+          <div class="relative mx-4 mt-4 flex flex-col gap-4 overflow-hidden rounded-none bg-transparent bg-clip-border text-gray-700 shadow-none md:flex-row md:items-center">
+           
+            <div>
+              <h6 class="block font-sans text-base font-semibold leading-relaxed tracking-normal text-blue-gray-900 antialiased">
+                  Top Customers
+              </h6>
+            </div>
+          </div>
+          <div class="pt-6 px-2 pb-0">
+            <div id="bar-chart2"></div>
+          </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+          <script>
+          const chartConfig4 = {
+            series: [
+              {
+                name: "Sales",
+                data: [50, 40, 300, 320, 500, 350, 200, 230, 500],
+              },
+            ],
+            chart: {
+              type: "bar",
+              height: 240,
+              toolbar: {
+                show: false,
+              },
+            },
+            title: {
+              show: "",
+            },
+            dataLabels: {
+              enabled: false,
+            },
+            colors: ["#020617"],
+            plotOptions: {
+              bar: {
+                columnWidth: "40%",
+                borderRadius: 2,
+              },
+            },
+            xaxis: {
+              axisTicks: {
+                show: false,
+              },
+              axisBorder: {
+                show: false,
+              },
+              labels: {
+                style: {
+                  colors: "#616161",
+                  fontSize: "12px",
+                  fontFamily: "inherit",
+                  fontWeight: 400,
+                },
+              },
+              categories: [
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec",
+              ],
+            },
+            yaxis: {
+              labels: {
+                style: {
+                  colors: "#616161",
+                  fontSize: "12px",
+                  fontFamily: "inherit",
+                  fontWeight: 400,
+                },
+              },
+            },
+            grid: {
+              show: true,
+              borderColor: "#dddddd",
+              strokeDashArray: 5,
+              xaxis: {
+                lines: {
+                  show: true,
+                },
+              },
+              padding: {
+                top: 5,
+                right: 20,
+              },
+            },
+            fill: {
+              opacity: 0.8,
+            },
+            tooltip: {
+              theme: "dark",
+            },
+          };
+           
+          const chart4 = new ApexCharts(document.querySelector("#bar-chart2"), chartConfig4);
+           
+          chart4.render();
+          </script>
     </div>
   </main>
   <footer class="bg-blue-600 h-20">
