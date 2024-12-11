@@ -41,7 +41,7 @@
 }
 
   async function enableEditing() {
-      const editableFields = document.querySelectorAll('[contenteditable]');
+      const editableFields = document.querySelectorAll('[contenteditable="false"]');
       editableFields.forEach(field => field.setAttribute('contenteditable', 'true'));
       document.getElementById('saveButton').classList.remove('hidden');
   }
@@ -61,7 +61,7 @@
       const updatedData = {
           lead_name: document.getElementById('leadName').innerText.trim(),
           account_name: document.getElementById('accountName').innerText.trim(),
-          company_name: document.getElementById('comapanyName').innerText.trim(),
+          company_name: document.getElementById('companyName').innerText.trim(),
           lead_owner: document.getElementById('leadOwner').innerText.trim(),
           title: document.getElementById('title').innerText.trim(),
           email_address: document.getElementById('emailAddress').innerText.trim(),
@@ -221,9 +221,10 @@
           </dl>
         </div>
         <div class="mt-4 text-right">
-          <button id="saveButton" class="hidden bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-500">
-              Save
-          </button>
+          <button id="saveButton" onclick="saveChanges()" class="hidden bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-500">
+            Save
+        </button>        
+        
         </div>
       </div>
       
@@ -246,7 +247,7 @@
         </div>
     </div>
 </footer>   
-<script src="lead_data.js"></script>
+
 </body>
 </html>
 

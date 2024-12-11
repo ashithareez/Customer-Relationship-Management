@@ -122,31 +122,35 @@
       const formData = {
         opportunityName: document.getElementById('opportunityName').value.trim(),
         opportunityStage: document.getElementById('opportunityStage').value.trim(),
-        createdDate: document.getElementById('createdDate').value.trim() || null,
-        accountName: document.getElementById('accountName').value.trim(),
-        contact: document.getElementById('contact').value.trim() || null,
         opportunityOwner: document.getElementById('opportunityOwner').value.trim() || null,
+        accountName: document.getElementById('accountName').value.trim(),
+        contactName: document.getElementById('contact').value.trim() || null,
         comments: document.getElementById('comments').value.trim() || null,
+        createdDate: document.getElementById('createdDate').value || null
       };
+
+      console.log('Sending data:', formData); // Debug log
 
       try {
         const response = await fetch('http://localhost:3000/opportunities', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
+          headers: { 
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
         });
 
-        const result = await response.json();
-
-        if (response.ok) {
-          alert(result.message);
-          document.getElementById('opportunityForm').reset();
-        } else {
-          alert(`Error: ${result.message}`);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to create opportunity');
         }
+
+        const result = await response.json();
+        alert(result.message);
+        window.location.href = 'Opportunity.html'; // Redirect after successful creation
       } catch (error) {
         console.error('Error:', error);
-        alert('An error occurred. Please try again.');
+        alert('Error creating opportunity: ' + error.message);
       }
     });
   </script>
