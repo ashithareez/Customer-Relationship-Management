@@ -99,7 +99,7 @@
   document.addEventListener('DOMContentLoaded', fetchContactDetails);
 </script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 flex flex-col min-h-screen">
   <!-- Header -->
   <header class="bg-blue-600 h-16"> <!-- Set a fixed height for the header -->
     <div class=" mx-auto sm:px-6 lg:px-8 flex items-center justify-between h-full"> <!-- Ensure the div stretches fully -->
@@ -172,7 +172,7 @@
         <a href="#" class="block rounded-md bg-cyan-600 px-3 py-2 text-base font-medium text-black hover:bg-cyan-600 hover:text-white">Tasks</a></div>
     </div>
   </nav>
-  <main class="mx-auto sm:px-10 lg:px-12 py-10">
+  <main class="sm:px-6 lg:px-8 flex-grow">
     <div class="bg-white p-6 rounded-lg shadow-lg ">
       <div>
         <div class="px-4 sm:px-0 flex justify-between items-center">
@@ -227,7 +227,7 @@
     </div>
   </main>
   
-  <footer class="bg-blue-600 h-20">
+  <footer class="bg-blue-600">
     <div class="mx-auto sm:px-6 lg:px-8 py-4">
         <!--Grid-->
         <div class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-8 py-4 max-sm:max-w-sm max-sm:mx-auto gap-y-4">

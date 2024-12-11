@@ -7,10 +7,8 @@
 <title>Contact Form</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
-  <!-- Header -->
-</head>
-<body class="bg-gray-100">
+
+<body class="bg-gray-100 flex flex-col min-h-screen">
     <!-- Header -->
     <header class="bg-blue-600 h-16"> <!-- Set a fixed height for the header -->
       <div class=" mx-auto sm:px-6 lg:px-8 flex items-center justify-between h-full"> <!-- Ensure the div stretches fully -->
@@ -76,7 +74,7 @@
   </nav>
 
   <!-- Main Content -->
-  <main class="container mx-auto p-6">
+  <main class="sm:px-6 lg:px-8 flex-grow">
     <div class="bg-white p-6 rounded-lg shadow-lg">
       <h2 class="text-2xl font-semibold mb-6">Create New Contact</h2>
       <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -164,6 +162,7 @@
         if (response.ok) {
           alert(result.message);
           document.getElementById('contactForm').reset();
+          window.location.href = 'contact.html'; 
         } else {
           alert(`Error: ${result.message}`);
         }
@@ -174,7 +173,7 @@
     });
   </script>
 
-  <footer class="bg-blue-600 h-20">
+  <footer class="bg-blue-600">
     <div class="mx-auto sm:px-6 lg:px-8 py-4">
       <div class="py-2 border-t border-gray-200">
         <div class="flex items-center justify-center flex-col lg:justify-between lg:flex-row">
