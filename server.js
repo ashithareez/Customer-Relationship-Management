@@ -615,6 +615,77 @@ app.post('/api/login', async (req, res) => {
 });
 
 
+const path = require('path');
+//const router = express.Router();
+ 
+
+ 
+// Define routes for serving HTML pages
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname,  'Public' ,'login.html'));
+});
+ 
+app.get('/index', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Public' , 'index.html'));
+});
+app.use(express.static(path.join(__dirname, 'Public')));
+// Account routes
+app.get('/account.html',  (req, res) => {
+    //res.type('text/html');
+    res.sendFile(path.join(__dirname, 'Public' ,'account.html'));
+});
+ 
+app.get('/account_form.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Public' , 'account_form.html'));
+});
+ 
+app.get('/account_detail.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Public' , 'account_detail.html'));
+});
+ 
+// Contact routes
+app.get('/contact.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Public' , 'contact.html'));
+});
+ 
+app.get('/contact_form.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Public' , 'contact_form.html'));
+});
+ 
+app.get('/contact_detail.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Public' , 'contact_detail.html'));
+});
+ 
+// Lead routes
+app.get('/Leads.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Public' , 'Leads.html'));
+});
+ 
+app.get('/lead_form.html', (req, res) => {
+    res.sendFile(path.join(__dirname,'Public' ,  'lead_form.html'));
+});
+ 
+app.get('/lead_detail.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Public' , 'lead_detail.html'));
+});
+ 
+// Opportunity routes
+app.get('/Opportunity.html', (req, res) => {
+    res.sendFile(path.join(__dirname,'Public' ,  'Opportunity.html'));
+});
+ 
+app.get('/opportunity_form.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Public' , 'opportunity_form.html'));
+});
+ 
+app.get('/opportunity_detail.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Public' , 'opportunity_detail.html'));
+});
+ 
+// Error handling for undefined routes
+
+ 
+module.exports = app;
 
 // Start the server
 app.listen(port, () => {

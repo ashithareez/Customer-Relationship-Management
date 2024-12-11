@@ -4,18 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="keywords" content="CRM">
-<title>Opportunity</title>
+<title>Account</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script src="opportunitysearch.js"></script>
-
-
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
   <!-- Header -->
   <header class="bg-blue-600 h-16"> <!-- Set a fixed height for the header -->
     <div class=" mx-auto sm:px-6 lg:px-8 flex items-center justify-between h-full"> <!-- Ensure the div stretches fully -->
       <a href="#" class="flex rtl:space-x-reverse">
-        <img src="CRM Logo.png" class="h-20" alt="CRM Logo"> <!-- Increase logo size without affecting header -->
+        <img src="CRM_Logo.png" class="h-20" alt="CRM Logo"> <!-- Increase logo size without affecting header -->
        </a>
       <div class="flex items-center space-x-4">
        <!-- Search Bar -->
@@ -86,41 +83,45 @@
   <main class="mx-auto sm:px-6 lg:px-8 flex-grow">
       <div class="flex items-center justify-between p-4">
         <!-- Heading -->
-        <h1 class="text-2xl font-semibold text-gray-900">All Opportunities</h1>
+        <h1 class="text-2xl font-semibold text-gray-900">All Accounts</h1>
+        
 
-<a href="opportunity_form.html" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500">Create New Opportunity</a>
+<a href="account_form.html" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-500">Create New Account</a>
 </div>  
 <div class="mx-auto sm:px-10 lg:px-12 py-10">
-  <!-- Table to Display Opportunity -->
-  <div class="bg-white shadow-md rounded-lg overflow-hidden mt-6">
-    <table class="min-w-full text-left text-sm text-gray-900">
-      <thead class="bg-gray-50">
-        <tr>
-          <th class="px-4 py-2">Opportunity Name</th>
-          <th class="px-4 py-2">Opportunity Stage</th>
-          <th class="px-4 py-2">Opportunity Owner</th>
-          <th class="px-4 py-2">Account Name</th>
-          <th class="px-4 py-2">Contact</th>
-          <th class="px-4 py-2">Comments</th>
-          <th class="px-4 py-2">Created Date</th>
-          <th class="px-4 py-2">Actions</th>
-        </tr>
-      </thead>
-      <tbody id="opportunityTableBody">
-        <!-- Rows will be dynamically inserted here -->
-      </tbody>
-    </table>
-  </div>
-  </div>
+  
+<!-- Table to Display Accounts -->
+<div class="bg-white shadow-md rounded-lg overflow-hidden mt-6">
+  <table class="min-w-full text-left text-sm text-gray-900">
+    <thead class="bg-gray-50">
+      <tr>
+        <th class="px-4 py-2">Account Name</th>
+        <th class="px-4 py-2">Account Owner</th>
+        <th class="px-4 py-2">Contact Name</th>
+        <th class="px-4 py-2">Email Address</th>
+        <th class="px-4 py-2">Phone Number</th>
+        <th class="px-4 py-2">Company Address</th>
+        <th class="px-4 py-2">Created Date</th>
+        <th class="px-4 py-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody id="accountTableBody">
+      <!-- Rows will be dynamically inserted here -->
+    </tbody>
+  </table>
+</div>
+  
+</div>
+
+
 </main>
 
-
 <!-- Include the external search functionality script -->
-<script src="opportunity_data.js"></script>
-
-  </div>
-  <footer class="bg-blue-600">
-    <div class="mx-auto sm:px-6 lg:px-8 py-4">
+<script src="./js/account_data.js"></script>
+  
+</div>
+<footer class="bg-blue-600">
+  <div class="mx-auto sm:px-6 lg:px-8 py-4">
         <!--Grid-->
         <div class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-8 py-4 max-sm:max-w-sm max-sm:mx-auto gap-y-4">
             <a href="index.html" class="flex rtl:space-x-reverse">
@@ -134,7 +135,8 @@
             </div>
         </div>
     </div>
-</footer> 
+  </footer>
+
 </body>
 </html>
 
