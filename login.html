@@ -78,7 +78,7 @@
   document.getElementById('login-form').addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    const email = document.getElementById('email').value;
+    const email = document.getElementById('user_name').value;
     const password = document.getElementById('password').value;
 
     const response = await fetch('http://localhost:3000/login', {
@@ -86,7 +86,7 @@
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email_address: email, password: password })
+      body: JSON.stringify({ user_name: user_name, password: password })
     });
 
     const data = await response.json();

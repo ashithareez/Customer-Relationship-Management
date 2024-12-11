@@ -566,43 +566,54 @@ app.put('/leads/:id', async (req, res) => {
         res.status(500).json({ message: 'Error updating lead', error: err.message });
     }
 });
+// ====== Login Route ======
+app.post('/api/login', async (req, res) => {
+    const { user_name, password } = req.body;
 
-// Add login route
-app.post('/login', (req, res) => {
-    const { email_address, password } = req.body;
-
-    if (!email_address || !password) {
-        return res.status(400).json({ message: 'Email address and password are required.' });
+    // Validate input fields
+    if (!user_name || !password) {
+        return res.status(400).json({ message: 'Username and password are required.' });
     }
 
-    // Query the database for the user
-    const query = 'SELECT * FROM users WHERE email_address = ?';
-    db.query(query, [email_address], (err, results) => {
-        if (err) {
-            console.error('Error fetching user:', err);
-            return res.status(500).json({ message: 'Error during authentication', error: err.message });
+    try {
+        // Query to check if the username and password exist in the database
+        const query = `
+            SELECT user_id, user_name, password
+            FROM dbo.users
+            WHERE user_name = @user_name
+        `;
+        
+        const request = new sql.Request();
+        request.input('user_name', sql.VarChar, user_name);
+
+        const result = await request.query(query);
+
+        // If no user found
+        if (result.recordset.length === 0) {
+            return res.status(404).json({ message: 'User not found.' });
         }
 
-        if (results.length === 0) {
+        // User found, now check the password (you may want to hash it in a real application)
+        const user = result.recordset[0];
+
+        if (user.password !== password) {
             return res.status(401).json({ message: 'Invalid credentials.' });
         }
 
-        // Compare the provided password with the hashed password in the database
-        const user = results[0];
-        bcrypt.compare(password, user.password, (err, match) => {
-            if (err) {
-                console.error('Error comparing passwords:', err);
-                return res.status(500).json({ message: 'Error during authentication', error: err.message });
-            }
-
-            if (match) {
-                res.status(200).json({ message: 'Login successful', user_id: user.user_id, email_address: user.email_address });
-            } else {
-                res.status(401).json({ message: 'Invalid credentials.' });
+        // Successful login
+        res.status(200).json({ 
+            message: 'Login successful',
+            user: {
+                user_id: user.user_id,
+                user_name: user.user_name
             }
         });
-    });
+    } catch (err) {
+        console.error('Error during login:', err);
+        res.status(500).json({ message: 'Error during login', error: err.message });
+    }
 });
+
 
 
 // Start the server
