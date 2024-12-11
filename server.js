@@ -6,6 +6,7 @@ const cors = require('cors');
 const app = express();
 const port = 8080;
 
+app.use(express.json());
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
@@ -32,6 +33,53 @@ sql.connect(config)
         console.error('Error connecting to SQL Azure:', err);
     });
 
+    // ====== Login Route ======
+app.post('/api/login', async (req, res) => {
+    const { user_name, password } = req.body;
+
+    // Validate input fields
+    if (!user_name || !password) {
+        return res.status(400).json({ message: 'Username and password are required.' });
+    }
+
+    try {
+        // Query to check if the username and password exist in the database
+        const query = `
+            SELECT user_id, user_name, password
+            FROM dbo.users
+            WHERE user_name = @user_name
+        `;
+        
+        const request = new sql.Request();
+        request.input('user_name', sql.VarChar, user_name);
+
+        const result = await request.query(query);
+
+        // If no user found
+        if (result.recordset.length === 0) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        // User found, now check the password (you may want to hash it in a real application)
+        const user = result.recordset[0];
+
+        if (user.password !== password) {
+            return res.status(401).json({ message: 'Invalid credentials.' });
+        }
+
+        // Successful login
+        res.status(200).json({ 
+            message: 'Login successful',
+            user: {
+                user_id: user.user_id,
+                user_name: user.user_name
+            }
+        });
+    } catch (err) {
+        console.error('Error during login:', err);
+        res.status(500).json({ message: 'Error during login', error: err.message });
+    }
+});
 // ====== Account Routes ======
 
 // Add a new account
