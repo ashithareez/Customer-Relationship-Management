@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     async function fetchOpportunities() {
         try {
-            const response = await fetch('http://localhost:3000/opportunities');
+            const response = await fetch('http://localhost:8080/opportunities');
             if (!response.ok) {
                 throw new Error(`Failed to fetch opportunities. Status: ${response.status}`);
             }

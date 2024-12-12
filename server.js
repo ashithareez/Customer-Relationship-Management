@@ -35,10 +35,12 @@ sql.connect(config)
 
     // ====== Login Route ======
 app.post('/api/login', async (req, res) => {
+    console.log('Login attempt received:', req.body);
     const { user_name, password } = req.body;
 
     // Validate input fields
     if (!user_name || !password) {
+        console.log('Missing credentials');
         return res.status(400).json({ message: 'Username and password are required.' });
     }
 
@@ -76,7 +78,7 @@ app.post('/api/login', async (req, res) => {
             }
         });
     } catch (err) {
-        console.error('Error during login:', err);
+        console.error('Detailed login error:', err);
         res.status(500).json({ message: 'Error during login', error: err.message });
     }
 });
@@ -616,10 +618,12 @@ app.put('/leads/:id', async (req, res) => {
 });
 // ====== Login Route ======
 app.post('/api/login', async (req, res) => {
+    console.log('Login attempt received:', req.body);
     const { user_name, password } = req.body;
 
     // Validate input fields
     if (!user_name || !password) {
+        console.log('Missing credentials');
         return res.status(400).json({ message: 'Username and password are required.' });
     }
 
@@ -657,7 +661,7 @@ app.post('/api/login', async (req, res) => {
             }
         });
     } catch (err) {
-        console.error('Error during login:', err);
+        console.error('Detailed login error:', err);
         res.status(500).json({ message: 'Error during login', error: err.message });
     }
 });

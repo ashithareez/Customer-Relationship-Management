@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     async function fetchContacts() {
         try {
-            const response = await fetch('http://localhost:3000/contacts');
+            const response = await fetch('http://localhost:8080/contacts');
             if (!response.ok) {
                 throw new Error(`Failed to fetch contacts. Status: ${response.status}`);
             }

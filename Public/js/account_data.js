@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     async function fetchAccounts() {
         try {
-            const response = await fetch('http://localhost:3000/accounts');
+            const response = await fetch('http://localhost:8080/accounts');
             if (!response.ok) {
                 throw new Error(`Failed to fetch accounts. Status: ${response.status}`);
             }

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to fetch all leads (for Leads.html)
     async function fetchLeads() {
         try {
-            const response = await fetch('http://localhost:3000/leads');
+            const response = await fetch('http://localhost:8080/leads');
             if (!response.ok) {
                 throw new Error(`Failed to fetch leads. Status: ${response.status}`);
             }

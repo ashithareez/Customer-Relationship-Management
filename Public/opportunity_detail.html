@@ -18,7 +18,7 @@
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/opportunities/${opportunityId}`);
+        const response = await fetch(`http://localhost:8080/opportunities/${opportunityId}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
