@@ -5,13 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchOpportunities() {
         try {
-            const response = await fetch(`${API_URL}/opportunities`);
+            console.log('Fetching opportunities from:', `${API_URL}/api/opportunities`);
+            const response = await fetch(`${API_URL}/api/opportunities`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch opportunities. Status: ${response.status}`);
             }
 
             const opportunities = await response.json();
-            console.log('Fetched opportunities:', opportunities); // Debug log
+            console.log('Fetched opportunities:', opportunities);
 
             const tableBody = document.getElementById('opportunityTableBody');
             tableBody.innerHTML = ''; // Clear previous rows

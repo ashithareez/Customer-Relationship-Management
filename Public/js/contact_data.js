@@ -5,13 +5,14 @@ const API_URL = window.location.hostname === 'localhost'
 document.addEventListener('DOMContentLoaded', () => {
     async function fetchContacts() {
         try {
-            const response = await fetch(`${API_URL}/contacts`);
+            console.log('Fetching contacts from:', `${API_URL}/api/contacts`);
+            const response = await fetch(`${API_URL}/api/contacts`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch contacts. Status: ${response.status}`);
             }
 
             const contacts = await response.json();
-            console.log('Fetched contacts:', contacts); // Debug log
+            console.log('Fetched contacts:', contacts);
 
             const tableBody = document.getElementById('contactTableBody');
             tableBody.innerHTML = '';

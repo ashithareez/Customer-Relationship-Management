@@ -19,14 +19,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to fetch all leads (for Leads.html)
     async function fetchLeads() {
         try {
-            // Update the fetch URL to use API_URL
-            const response = await fetch(`${API_URL}/leads`);
+            console.log('Fetching leads from:', `${API_URL}/api/leads`);
+            const response = await fetch(`${API_URL}/api/leads`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch leads. Status: ${response.status}`);
             }
 
             const leads = await response.json();
-            console.log('Fetched leads:', leads); // Debug log
+            console.log('Fetched leads:', leads);
 
             tableBody.innerHTML = ''; // Clear previous rows
 
@@ -64,14 +64,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to fetch lead details (for lead_detail.html)
     async function fetchLeadDetails(leadId) {
         try {
-            // Update the fetch URL to use API_URL and correct port
-            const response = await fetch(`${API_URL}/leads/${leadId}`);
+            console.log('Fetching lead details from:', `${API_URL}/api/leads/${leadId}`);
+            const response = await fetch(`${API_URL}/api/leads/${leadId}`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch lead details: ${response.statusText}`);
             }
 
             const lead = await response.json();
-            console.log('Fetched lead details:', lead); // Debug log
+            console.log('Fetched lead details:', lead);
 
             // Populate fields with fetched lead data
             document.getElementById('leadName').innerText = lead.lead_name || '';
