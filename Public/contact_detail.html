@@ -65,15 +65,15 @@
     const formattedCreatedDate = rawCreatedDate.split('T')[0]; // Extract 'YYYY-MM-DD'
 
     const updatedData = {
-      contactName: document.getElementById('contactName').innerText.trim(),
-      accountName: document.getElementById('accountName').innerText.trim(),
-      contactOwner: document.getElementById('contactOwner').innerText.trim(),
-      emailAddress: document.getElementById('emailAddress').innerText.trim(),
-      phoneNumber: document.getElementById('phoneNumber').innerText.trim(),
+      contact_name: document.getElementById('contactName').innerText.trim(),
+      account_name: document.getElementById('accountName').innerText.trim(),
+      contact_owner: document.getElementById('contactOwner').innerText.trim(),
+      email_address: document.getElementById('emailAddress').innerText.trim(),
+      phone_number: document.getElementById('phoneNumber').innerText.trim(),
       title: document.getElementById('title').innerText.trim(),
       comments: document.getElementById('comments').innerText.trim(),
-      createdDate: formattedCreatedDate,
-      companyAddress: document.getElementById('companyAddress').innerText.trim(),
+      created_date: formattedCreatedDate,
+      company_address: document.getElementById('companyAddress').innerText.trim(),
     };
 
     console.log('Sending updated data:', updatedData);

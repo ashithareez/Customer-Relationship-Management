@@ -63,12 +63,12 @@
     const formattedDate = dateValue ? new Date(dateValue).toISOString().split('T')[0] : null;
 
     const updatedData = {
-      opportunityName: document.getElementById('opportunityName').innerText.trim(),
-      opportunityStage: document.getElementById('opportunityStage').innerText.trim(),
-      accountName: document.getElementById('accountName').innerText.trim(),
-      opportunityOwner: document.getElementById('opportunityOwner').innerText.trim(),
-      contactName: document.getElementById('contact_name').innerText.trim(),
-      createdDate: formattedDate,
+      opportunity_name: document.getElementById('opportunityName').innerText.trim(),
+      opportunity_stage: document.getElementById('opportunityStage').innerText.trim(),
+      account_name: document.getElementById('accountName').innerText.trim(),
+      opportunity_owner: document.getElementById('opportunityOwner').innerText.trim(),
+      contact_name: document.getElementById('contact_name').innerText.trim(),
+      created_date: formattedDate,
       comments: document.getElementById('comments').innerText.trim()
     };
 
