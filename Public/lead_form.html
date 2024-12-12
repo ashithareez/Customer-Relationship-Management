@@ -140,15 +140,15 @@
           event.preventDefault();
 
           const formData = {
-              lead_name: document.getElementById('leadName').value.trim() || null,
-              account_name: document.getElementById('accountName').value.trim() || null,
-              contact_name: document.getElementById('contactName').value.trim() || null,
-              lead_owner: document.getElementById('leadOwner').value.trim() || null,
-              phone_number: document.getElementById('phoneNumber').value.trim() || null,
-              company_name: document.getElementById('companyName').value.trim() || null,
+              leadName: document.getElementById('leadName').value.trim() || null,
+              accountName: document.getElementById('accountName').value.trim() || null,
+              contactName: document.getElementById('contactName').value.trim() || null,
+              leadOwner: document.getElementById('leadOwner').value.trim() || null,
+              phoneNumber: document.getElementById('phoneNumber').value.trim() || null,
+              companyName: document.getElementById('companyName').value.trim() || null,
               title: document.getElementById('title').value.trim() || null,
-              email_address: document.getElementById('emailAddress').value.trim() || null,
-              created_date: new Date().toISOString().split('T')[0],
+              emailAddress: document.getElementById('emailAddress').value.trim() || null,
+              createdDate: new Date().toISOString().split('T')[0],
           };
 
           console.log('Sending lead data:', formData);

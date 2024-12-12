@@ -141,15 +141,15 @@
       event.preventDefault();
 
       const formData = {
-        contact_name: document.getElementById('contactName').value.trim() || null,
+        contactName: document.getElementById('contactName').value.trim() || null,
         title: document.getElementById('title').value.trim() || null,
-        account_name: document.getElementById('accountName').value.trim() || null,
-        contact_owner: document.getElementById('contactOwner').value.trim() || null,
-        phone_number: document.getElementById('phoneNumber').value.trim() || null,
-        email_address: document.getElementById('emailAddress').value.trim() || null,
-        company_address: document.getElementById('companyAddress').value.trim() || null,
+        accountName: document.getElementById('accountName').value.trim() || null,
+        contactOwner: document.getElementById('contactOwner').value.trim() || null,
+        phoneNumber: document.getElementById('phoneNumber').value.trim() || null,
+        emailAddress: document.getElementById('emailAddress').value.trim() || null,
+        companyAddress: document.getElementById('companyAddress').value.trim() || null,
         comments: document.getElementById('comments').value.trim() || null,
-        created_date: new Date().toISOString().split('T')[0],
+        createdDate: new Date().toISOString().split('T')[0]
       };
 
       console.log('Sending contact data:', formData);

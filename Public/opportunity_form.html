@@ -124,13 +124,13 @@
       event.preventDefault();
 
       const formData = {
-        opportunity_name: document.getElementById('opportunityName').value.trim() || null,
-        opportunity_stage: document.getElementById('opportunityStage').value.trim() || null,
-        opportunity_owner: document.getElementById('opportunityOwner').value.trim() || null,
-        account_name: document.getElementById('accountName').value.trim() || null,
-        contact_name: document.getElementById('contact').value.trim() || null,
+        opportunityName: document.getElementById('opportunityName').value.trim() || null,
+        opportunityStage: document.getElementById('opportunityStage').value.trim() || null,
+        opportunityOwner: document.getElementById('opportunityOwner').value.trim() || null,
+        accountName: document.getElementById('accountName').value.trim() || null,
+        contactName: document.getElementById('contact').value.trim() || null,
         comments: document.getElementById('comments').value.trim() || null,
-        created_date: new Date().toISOString().split('T')[0]
+        createdDate: new Date().toISOString().split('T')[0]
       };
 
       console.log('Sending opportunity data:', formData);
