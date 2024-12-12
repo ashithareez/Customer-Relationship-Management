@@ -17,7 +17,7 @@
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/leads/${leadId}`);
+        const response = await fetch(`http://crmwebapp-env.eba-hur2mvaf.us-east-1.elasticbeanstalk.com/leads/${leadId}`);
         if (!response.ok) {
             throw new Error(`Failed to fetch lead details: ${response.statusText}`);
         }
