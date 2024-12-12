@@ -667,7 +667,7 @@ app.put('/api/leads/:id', async (req, res) => {
 // Removed duplicate login route
 
 // Define routes for serving HTML pages
-app.get('/', (req, res) => {
+app.get('/login.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'Public' ,'login.html'));
 });
 
