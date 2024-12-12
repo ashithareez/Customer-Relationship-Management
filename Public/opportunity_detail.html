@@ -7,91 +7,96 @@
 <title>Opportunity Details</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
+  const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:8080' 
+    : 'http://crmwebapp-env.eba-hur2mvaf.us-east-1.elasticbeanstalk.com';
+
   async function fetchOpportunityDetails() {
     const params = new URLSearchParams(window.location.search);
     const opportunityId = params.get('opportunityId');
 
     if (!opportunityId) {
-        console.error('No opportunity ID provided');
-        alert('Invalid opportunity ID');
-        return;
+      console.error('No opportunity ID provided');
+      alert('Invalid opportunity ID');
+      return;
     }
 
     try {
-        const response = await fetch(`http://crmwebapp-env.eba-hur2mvaf.us-east-1.elasticbeanstalk.com/opportunities/${opportunityId}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log('Received data:', data);
+      console.log('Fetching opportunity details from:', `${API_URL}/api/opportunities/${opportunityId}`);
+      const response = await fetch(`${API_URL}/api/opportunities/${opportunityId}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('Received data:', data);
         
-        // Populate the fields
-        document.getElementById('opportunityName').innerText = data.opportunity_name || 'N/A';
-        document.getElementById('opportunityStage').innerText = data.opportunity_stage || 'N/A';
-        document.getElementById('accountName').innerText = data.account_name || 'N/A';
-        document.getElementById('opportunityOwner').innerText = data.opportunity_owner || 'N/A';
-        document.getElementById('contact_name').innerText = data.contact_name || 'N/A';
-        document.getElementById('createdDate').innerText = data.created_date || 'N/A';
-        document.getElementById('comments').innerText = data.comments || 'N/A';
+      // Populate the fields
+      document.getElementById('opportunityName').innerText = data.opportunity_name || 'N/A';
+      document.getElementById('opportunityStage').innerText = data.opportunity_stage || 'N/A';
+      document.getElementById('accountName').innerText = data.account_name || 'N/A';
+      document.getElementById('opportunityOwner').innerText = data.opportunity_owner || 'N/A';
+      document.getElementById('contact_name').innerText = data.contact_name || 'N/A';
+      document.getElementById('createdDate').innerText = data.created_date || 'N/A';
+      document.getElementById('comments').innerText = data.comments || 'N/A';
     } catch (error) {
-        console.error('Error fetching opportunity details:', error);
-        alert('An error occurred while fetching opportunity details. Please try again.');
+      console.error('Error fetching opportunity details:', error);
+      alert('An error occurred while fetching opportunity details. Please try again.');
     }
-}
+  }
 
   async function enableEditing() {
-      const editableFields = document.querySelectorAll('[contenteditable]');
-      editableFields.forEach(field => field.setAttribute('contenteditable', 'true'));
-      document.getElementById('saveButton').classList.remove('hidden');
+    const editableFields = document.querySelectorAll('[contenteditable]');
+    editableFields.forEach(field => field.setAttribute('contenteditable', 'true'));
+    document.getElementById('saveButton').classList.remove('hidden');
   }
 
   async function saveChanges() {
-      const opportunityId = new URLSearchParams(window.location.search).get('opportunityId');
+    const opportunityId = new URLSearchParams(window.location.search).get('opportunityId');
       
-      if (!opportunityId) {
-        alert('Invalid opportunity ID. Unable to save changes.');
-        return;
-     }
+    if (!opportunityId) {
+      alert('Invalid opportunity ID. Unable to save changes.');
+      return;
+    }
 
-        // Get the date value and ensure it's in YYYY-MM-DD format
-        const dateValue = document.getElementById('createdDate').innerText.trim();
-        const formattedDate = dateValue ? new Date(dateValue).toISOString().split('T')[0] : null;
+    // Get the date value and ensure it's in YYYY-MM-DD format
+    const dateValue = document.getElementById('createdDate').innerText.trim();
+    const formattedDate = dateValue ? new Date(dateValue).toISOString().split('T')[0] : null;
 
-        const updatedData = {
-            opportunity_name: document.getElementById('opportunityName').innerText.trim(),
-            opportunity_stage: document.getElementById('opportunityStage').innerText.trim(),
-            account_name: document.getElementById('accountName').innerText.trim(),
-            opportunity_owner: document.getElementById('opportunityOwner').innerText.trim(),
-            contact_name: document.getElementById('contact_name').innerText.trim(),
-            created_date: formattedDate,  // Use the formatted date
-            comments: document.getElementById('comments').innerText.trim()
-        };
+    const updatedData = {
+      opportunityName: document.getElementById('opportunityName').innerText.trim(),
+      opportunityStage: document.getElementById('opportunityStage').innerText.trim(),
+      accountName: document.getElementById('accountName').innerText.trim(),
+      opportunityOwner: document.getElementById('opportunityOwner').innerText.trim(),
+      contactName: document.getElementById('contact_name').innerText.trim(),
+      createdDate: formattedDate,
+      comments: document.getElementById('comments').innerText.trim()
+    };
 
-        console.log('Sending updated data:', updatedData);
+    console.log('Sending updated data:', updatedData);
 
-        try {
-            const response = await fetch(`http://localhost:3000/opportunities/${opportunityId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedData)
-            });
+    try {
+      const response = await fetch(`${API_URL}/api/opportunities/${opportunityId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedData)
+      });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Failed to update opportunity');
-            }
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update opportunity');
+      }
 
-            alert('Changes saved successfully!');
-            const editableFields = document.querySelectorAll('[contenteditable]');
-            editableFields.forEach(field => field.setAttribute('contenteditable', 'false'));
-            document.getElementById('saveButton').classList.add('hidden');
-        } catch (error) {
-            console.error('Error saving changes:', error);
-            alert('Failed to save changes. Please try again.');
-        }
-}
+      alert('Changes saved successfully!');
+      const editableFields = document.querySelectorAll('[contenteditable]');
+      editableFields.forEach(field => field.setAttribute('contenteditable', 'false'));
+      document.getElementById('saveButton').classList.add('hidden');
+    } catch (error) {
+      console.error('Error saving changes:', error);
+      alert('Failed to save changes. Please try again.');
+    }
+  }
 
   document.addEventListener('DOMContentLoaded', fetchOpportunityDetails);
 </script>
@@ -152,8 +157,8 @@
       </div>
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
         <button class="p-2 rounded-full bg-white hover:bg-blue-500">
-            <svg class="h-8 w-8 text-black"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+            <svg class="h-8 w-8 text-black"  fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
             </svg>
         </button>
       </div>
@@ -234,4 +239,3 @@
 </footer>   
 </body>
 </html>
-

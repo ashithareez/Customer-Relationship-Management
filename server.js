@@ -31,6 +31,11 @@ app.use(express.static(path.join(__dirname, 'Public'), {
     }
 }));
 
+// Route for default page - redirect to login
+app.get('/', (req, res) => {
+    res.redirect('/login.html');
+});
+
 // SQL Azure connection configuration
 const config = {
     server: 'crmdatabaseproject.database.windows.net',
@@ -662,14 +667,10 @@ app.put('/api/leads/:id', async (req, res) => {
 // Removed duplicate login route
 
 // Define routes for serving HTML pages
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname,  'Public' ,'login.html'));
+app.get('/index.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'Public' ,'index.html'));
 });
  
-app.get('/index.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Public' , 'index.html'));
-});
-// Account routes
 app.get('/account.html',  (req, res) => {
     //res.type('text/html');
     res.sendFile(path.join(__dirname, 'Public' ,'account.html'));

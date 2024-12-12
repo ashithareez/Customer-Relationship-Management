@@ -7,8 +7,12 @@
 <title>Lead Detail</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
+  const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:8080' 
+    : 'http://crmwebapp-env.eba-hur2mvaf.us-east-1.elasticbeanstalk.com';
+
   async function fetchLeadDetails() {
-    const leadId = new URLSearchParams(window.location.search).get('leadId'); // Correct query param
+    const leadId = new URLSearchParams(window.location.search).get('leadId');
 
     if (!leadId) {
       console.error('No lead ID provided in the URL.');
@@ -17,85 +21,86 @@
     }
 
     try {
-        const response = await fetch(`http://crmwebapp-env.eba-hur2mvaf.us-east-1.elasticbeanstalk.com/leads/${leadId}`);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch lead details: ${response.statusText}`);
-        }
+      console.log('Fetching lead details from:', `${API_URL}/api/leads/${leadId}`);
+      const response = await fetch(`${API_URL}/api/leads/${leadId}`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch lead details: ${response.statusText}`);
+      }
 
-        const data = await response.json();
+      const data = await response.json();
+      console.log('Fetched lead details:', data);
 
       // Populate fields
-        document.getElementById('leadName').innerText = data.lead_name || 'N/A';
-        document.getElementById('leadOwner').innerText = data.lead_owner || 'N/A';
-        document.getElementById('accountName').innerText = data.account_name || 'N/A';
-        document.getElementById('companyName').innerText = data.company_name || 'N/A';
-        document.getElementById('contactName').innerText = data.contact_name || 'N/A';
-        document.getElementById('emailAddress').innerText = data.email_address || 'N/A';
-        document.getElementById('phoneNumber').innerText = data.phone_number || 'N/A';
-        document.getElementById('createdDate').innerText = data.created_date || 'N/A';
-        document.getElementById('title').innerText = data.title || 'N/A';
+      document.getElementById('leadName').innerText = data.lead_name || 'N/A';
+      document.getElementById('leadOwner').innerText = data.lead_owner || 'N/A';
+      document.getElementById('accountName').innerText = data.account_name || 'N/A';
+      document.getElementById('companyName').innerText = data.company_name || 'N/A';
+      document.getElementById('contactName').innerText = data.contact_name || 'N/A';
+      document.getElementById('emailAddress').innerText = data.email_address || 'N/A';
+      document.getElementById('phoneNumber').innerText = data.phone_number || 'N/A';
+      document.getElementById('createdDate').innerText = data.created_date || 'N/A';
+      document.getElementById('title').innerText = data.title || 'N/A';
     } catch (error) {
-        console.error('Error fetching lead details:', error);
-        alert('An error occurred while fetching lead details. Please try again.');
+      console.error('Error fetching lead details:', error);
+      alert('An error occurred while fetching lead details. Please try again.');
     }
-}
+  }
 
   async function enableEditing() {
-      const editableFields = document.querySelectorAll('[contenteditable="false"]');
-      editableFields.forEach(field => field.setAttribute('contenteditable', 'true'));
-      document.getElementById('saveButton').classList.remove('hidden');
+    const editableFields = document.querySelectorAll('[contenteditable="false"]');
+    editableFields.forEach(field => field.setAttribute('contenteditable', 'true'));
+    document.getElementById('saveButton').classList.remove('hidden');
   }
 
   async function saveChanges() {
-      const leadId = new URLSearchParams(window.location.search).get('leadId');
+    const leadId = new URLSearchParams(window.location.search).get('leadId');
       
-      if (!leadId) {
-        alert('Invalid lead. Unable to save changes.');
-        return;
-     }
+    if (!leadId) {
+      alert('Invalid lead. Unable to save changes.');
+      return;
+    }
 
-     // Retrieve and format the date
+    // Retrieve and format the date
     const rawCreatedDate = document.getElementById('createdDate').innerText.trim();
     const formattedCreatedDate = rawCreatedDate.split('T')[0]; // Extract 'YYYY-MM-DD'
 
-      const updatedData = {
-          lead_name: document.getElementById('leadName').innerText.trim(),
-          account_name: document.getElementById('accountName').innerText.trim(),
-          company_name: document.getElementById('companyName').innerText.trim(),
-          lead_owner: document.getElementById('leadOwner').innerText.trim(),
-          title: document.getElementById('title').innerText.trim(),
-          email_address: document.getElementById('emailAddress').innerText.trim(),
-          phone_number: document.getElementById('phoneNumber').innerText.trim(),
-          contact_name: document.getElementById('contactName').innerText.trim(),
-          created_date: formattedCreatedDate,
-          
-      };
+    const updatedData = {
+      leadName: document.getElementById('leadName').innerText.trim(),
+      accountName: document.getElementById('accountName').innerText.trim(),
+      companyName: document.getElementById('companyName').innerText.trim(),
+      leadOwner: document.getElementById('leadOwner').innerText.trim(),
+      title: document.getElementById('title').innerText.trim(),
+      emailAddress: document.getElementById('emailAddress').innerText.trim(),
+      phoneNumber: document.getElementById('phoneNumber').innerText.trim(),
+      contactName: document.getElementById('contactName').innerText.trim(),
+      createdDate: formattedCreatedDate,
+    };
 
-      console.log('Updated Data:', updatedData);
+    console.log('Sending updated data:', updatedData);
 
     try {
-        const response = await fetch(`http://localhost:3000/leads/${leadId}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedData),
-        });
+      const response = await fetch(`${API_URL}/api/leads/${leadId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedData),
+      });
 
-        const result = await response.json();
-        console.log('Save Response:', result);
+      const result = await response.json();
+      console.log('Save Response:', result);
 
       if (response.ok) {
-          alert('Changes saved successfully!');
-          const editableFields = document.querySelectorAll('[contenteditable]');
-          editableFields.forEach(field => field.removeAttribute('contenteditable'));
-          document.getElementById('saveButton').classList.add('hidden');
+        alert('Changes saved successfully!');
+        const editableFields = document.querySelectorAll('[contenteditable]');
+        editableFields.forEach(field => field.removeAttribute('contenteditable'));
+        document.getElementById('saveButton').classList.add('hidden');
       } else {
         throw new Error(result.message || 'Failed to save changes.');
-        }
+      }
     } catch (error) {
-        console.error('Error saving changes:', error);
-        alert('Failed to save changes. Please try again.');
+      console.error('Error saving changes:', error);
+      alert('Failed to save changes. Please try again.');
     }
-}
+  }
 
   document.addEventListener('DOMContentLoaded', fetchLeadDetails);
 </script>
@@ -250,4 +255,3 @@
 
 </body>
 </html>
-
