@@ -178,17 +178,6 @@
           }showNotification(); // Trigger a notification after form submission
       });
       
-      function showNotification() {
-  // Show the notification icon with a count
-  const notificationCount = document.getElementById('notificationCount');
-  notificationCount.classList.remove('hidden'); // Show the badge
-  notificationCount.textContent = '1'; // Set count or change text
- 
-  // Optionally, you can hide the notification after 3 seconds
-  setTimeout(() => {
-    notificationCount.classList.add('hidden');
-  }, 3000);
-}
    
   </script>
 
