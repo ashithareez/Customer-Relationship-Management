@@ -681,7 +681,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname,  'Public' ,'login.html'));
 });
  
-app.get('/index', (req, res) => {
+app.get('/index.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'Public' , 'index.html'));
 });
 app.use(express.static('public'));
