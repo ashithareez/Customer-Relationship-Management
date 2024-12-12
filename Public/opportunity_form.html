@@ -64,7 +64,7 @@
         </div>
         <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
           <button class="p-2 rounded-full bg-white hover:bg-blue-500">
-              <svg class="h-8 w-8 text-black"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg class="h-8 w-8 text-black"  fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
               </svg>
           </button>
@@ -116,23 +116,27 @@
     </div>
   </main>
   <script>
+    const API_URL = window.location.hostname === 'localhost' 
+      ? 'http://localhost:8080' 
+      : 'http://crmwebapp-env.eba-hur2mvaf.us-east-1.elasticbeanstalk.com';
+
     document.getElementById('opportunityForm').addEventListener('submit', async function (event) {
       event.preventDefault();
 
       const formData = {
-        opportunityName: document.getElementById('opportunityName').value.trim(),
-        opportunityStage: document.getElementById('opportunityStage').value.trim(),
-        opportunityOwner: document.getElementById('opportunityOwner').value.trim() || null,
-        accountName: document.getElementById('accountName').value.trim(),
-        contactName: document.getElementById('contact').value.trim() || null,
+        opportunity_name: document.getElementById('opportunityName').value.trim() || null,
+        opportunity_stage: document.getElementById('opportunityStage').value.trim() || null,
+        opportunity_owner: document.getElementById('opportunityOwner').value.trim() || null,
+        account_name: document.getElementById('accountName').value.trim() || null,
+        contact_name: document.getElementById('contact').value.trim() || null,
         comments: document.getElementById('comments').value.trim() || null,
-        createdDate: document.getElementById('createdDate').value || null
+        created_date: new Date().toISOString().split('T')[0]
       };
 
-      console.log('Sending data:', formData); // Debug log
+      console.log('Sending opportunity data:', formData);
 
       try {
-        const response = await fetch('http://crmwebapp-env.eba-hur2mvaf.us-east-1.elasticbeanstalk.com/opportunities', {
+        const response = await fetch(`${API_URL}/api/opportunities`, {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json'
@@ -140,17 +144,19 @@
           body: JSON.stringify(formData)
         });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Failed to create opportunity');
-        }
-
         const result = await response.json();
-        alert(result.message);
-        window.location.href = 'Opportunity.html'; // Redirect after successful creation
+        console.log('Server response:', result);
+
+        if (response.ok) {
+          alert(result.message);
+          document.getElementById('opportunityForm').reset();
+          window.location.href = 'Opportunity.html';
+        } else {
+          alert(`Error: ${result.message}`);
+        }
       } catch (error) {
-        console.error('Error:', error);
-        alert('Error creating opportunity: ' + error.message);
+        console.error('Error submitting opportunity:', error);
+        alert('An error occurred. Please try again.');
       }
     });
   </script>
