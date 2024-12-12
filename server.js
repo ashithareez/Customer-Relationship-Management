@@ -168,7 +168,7 @@ app.post('/api/accounts', async (req, res) => {
 });
 
 // Get all accounts
-app.get('/accounts', async (req, res) => {
+app.get('/api/accounts', async (req, res) => {
     try {
         const query = `
             SELECT 
@@ -183,30 +183,27 @@ app.get('/accounts', async (req, res) => {
             FROM dbo.account
         `;
         const result = await sql.query(query);
+        console.log('Accounts fetched:', result.recordset);
         res.json(result.recordset);
     } catch (err) {
-        console.error('Error fetching accounts:', err.message);
+        console.error('Error fetching accounts:', err);
         res.status(500).json({ message: 'Error fetching accounts', error: err.message });
     }
 });
 
-// ====== account_detail.html ======
-
-// Fetch all accounts
 // Fetch account by ID
-app.get('/accounts/:id', async (req, res) => {
+app.get('/api/accounts/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const query = `SELECT * FROM dbo.account WHERE account_id = @id`;
         const request = new sql.Request();
         request.input('id', sql.Int, id);
-
         const result = await request.query(query);
-
+        
         if (result.recordset.length === 0) {
-            return res.status(404).json({ message: 'Account not found.' });
+            return res.status(404).json({ message: 'Account not found' });
         }
-
+        
         res.json(result.recordset[0]);
     } catch (err) {
         console.error('Error fetching account:', err);
@@ -214,56 +211,60 @@ app.get('/accounts/:id', async (req, res) => {
     }
 });
 
-
-
-app.put('/accounts/:id', async (req, res) => {
+// Update account
+app.put('/api/accounts/:id', async (req, res) => {
     const { id } = req.params;
-    const { account_name, account_owner, contact_name, email_address, phone_number, created_date, company_address } = req.body;
-
-    if (!id || id === 'null') {
-        return res.status(400).json({ message: 'Invalid account ID.' });
-    }
+    const {
+        accountName,
+        accountOwner,
+        contactName,
+        phoneNumber,
+        emailAddress,
+        companyAddress,
+        createdDate
+    } = req.body;
 
     try {
         const query = `
             UPDATE dbo.account
             SET 
-                account_name = @account_name,
-                account_owner = @account_owner,
-                contact_name = @contact_name,
-                email_address = @email_address,
-                phone_number = @phone_number,
-                created_date = @created_date,
-                company_address = @company_address
+                account_name = @accountName,
+                account_owner = @accountOwner,
+                contact_name = @contactName,
+                phone_number = @phoneNumber,
+                email_address = @emailAddress,
+                company_address = @companyAddress,
+                created_date = @createdDate
             WHERE account_id = @id
         `;
-
+        
         const request = new sql.Request();
-        request.input('account_name', sql.VarChar, account_name);
-        request.input('account_owner', sql.VarChar, account_owner);
-        request.input('contact_name', sql.VarChar, contact_name);
-        request.input('email_address', sql.VarChar, email_address);
-        request.input('phone_number', sql.VarChar, phone_number);
-        request.input('created_date', sql.Date, created_date);
-        request.input('company_address', sql.VarChar, company_address);
         request.input('id', sql.Int, id);
+        request.input('accountName', sql.VarChar, accountName);
+        request.input('accountOwner', sql.VarChar, accountOwner || null);
+        request.input('contactName', sql.VarChar, contactName || null);
+        request.input('phoneNumber', sql.VarChar, phoneNumber || null);
+        request.input('emailAddress', sql.VarChar, emailAddress);
+        request.input('companyAddress', sql.VarChar, companyAddress || null);
+        request.input('createdDate', sql.Date, createdDate || null);
 
         const result = await request.query(query);
-
+        
         if (result.rowsAffected[0] === 0) {
-            return res.status(404).json({ message: 'Account not found.' });
+            return res.status(404).json({ message: 'Account not found' });
         }
-
-        res.json({ message: 'Account updated successfully.' });
+        
+        res.json({ message: 'Account updated successfully' });
     } catch (err) {
         console.error('Error updating account:', err);
         res.status(500).json({ message: 'Error updating account', error: err.message });
     }
 });
+
 // ====== Contact Routes ======
 
 // Add a new contact
-app.post('/contacts', async (req, res) => {
+app.post('/api/contacts', async (req, res) => {
     const {
         contactName,
         title,
@@ -301,7 +302,7 @@ app.post('/contacts', async (req, res) => {
 });
 
 // Get all contacts
-app.get('/contacts', async (req, res) => {
+app.get('/api/contacts', async (req, res) => {
     try {
         const query = `
             SELECT 
@@ -328,7 +329,7 @@ app.get('/contacts', async (req, res) => {
 // ====== contact_detail.html ======
 
 // Fetch contact by ID
-app.get('/contacts/:id', async (req, res) => {
+app.get('/api/contacts/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const query = `SELECT * FROM dbo.contact WHERE contact_id = @id`;
@@ -349,13 +350,9 @@ app.get('/contacts/:id', async (req, res) => {
 });
 
 
-app.put('/contacts/:id', async (req, res) => {
+app.put('/api/contacts/:id', async (req, res) => {
     const { id } = req.params;
     const { contact_name, account_name, contact_owner, title, email_address, phone_number, created_date, company_address, comments } = req.body;
-
-    if (!id || id === 'null') {
-        return res.status(400).json({ message: 'Invalid contact ID.' });
-    }
 
     try {
         const query = `
@@ -401,7 +398,7 @@ app.put('/contacts/:id', async (req, res) => {
 // ====== Opportunity Routes ======
 
 // Add a new opportunity
-app.post('/opportunities', async (req, res) => {
+app.post('/api/opportunities', async (req, res) => {
     const {
         opportunityName,
         opportunityStage,
@@ -435,7 +432,7 @@ app.post('/opportunities', async (req, res) => {
 });
 
 // Get all opportunities
-app.get('/opportunities', async (req, res) => {
+app.get('/api/opportunities', async (req, res) => {
     try {
         const query = `
             SELECT 
@@ -460,7 +457,7 @@ app.get('/opportunities', async (req, res) => {
 // ====== opportunity_detail.html ======
 
 // Fetch opportunity by ID
-app.get('/opportunities/:id', async (req, res) => {
+app.get('/api/opportunities/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const query = `SELECT * FROM dbo.opportunity WHERE opportunity_id = @id`;
@@ -482,7 +479,7 @@ app.get('/opportunities/:id', async (req, res) => {
 
 
 
-app.put('/opportunities/:id', async (req, res) => {
+app.put('/api/opportunities/:id', async (req, res) => {
     const { id } = req.params;
     const { opportunity_name, opportunity_stage, opportunity_owner, account_name, contact_name, created_date, comments } = req.body;
 
@@ -526,7 +523,7 @@ app.put('/opportunities/:id', async (req, res) => {
 // ====== Lead Routes ======
 
 // Add a new lead
-app.post('/leads', async (req, res) => {
+app.post('/api/leads', async (req, res) => {
     const {
         leadName,
         accountName,
@@ -568,7 +565,7 @@ app.post('/leads', async (req, res) => {
 });
 
 // Get all leads
-app.get('/leads', async (req, res) => {
+app.get('/api/leads', async (req, res) => {
     try {
         const query = `
             SELECT 
@@ -595,7 +592,7 @@ app.get('/leads', async (req, res) => {
 // ====== lead_detail.html ======
 
 // Fetch lead by ID
-app.get('/leads/:id', async (req, res) => {
+app.get('/api/leads/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const query = `SELECT * FROM dbo.lead WHERE lead_id = @id`;
@@ -617,7 +614,7 @@ app.get('/leads/:id', async (req, res) => {
 
 
 
-app.put('/leads/:id', async (req, res) => {
+app.put('/api/leads/:id', async (req, res) => {
     const { id } = req.params;
     const { lead_name, account_name, company_name, lead_owner, title, email_address, phone_number, contact_name, created_date } = req.body;
 
