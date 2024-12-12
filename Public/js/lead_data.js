@@ -1,3 +1,8 @@
+// Add API URL configuration at the top of the file
+const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:8080' 
+    : 'http://crmwebapp-env.eba-hur2mvaf.us-east-1.elasticbeanstalk.com';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Check if the current page is `Leads.html` or `lead_detail.html`
     const tableBody = document.getElementById('leadTableBody');
@@ -14,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to fetch all leads (for Leads.html)
     async function fetchLeads() {
         try {
-            const response = await fetch('http://localhost:8080/leads');
+            // Update the fetch URL to use API_URL
+            const response = await fetch(`${API_URL}/leads`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch leads. Status: ${response.status}`);
             }
@@ -58,7 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to fetch lead details (for lead_detail.html)
     async function fetchLeadDetails(leadId) {
         try {
-            const response = await fetch(`http://localhost:3000/leads/${leadId}`);
+            // Update the fetch URL to use API_URL and correct port
+            const response = await fetch(`${API_URL}/leads/${leadId}`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch lead details: ${response.statusText}`);
             }

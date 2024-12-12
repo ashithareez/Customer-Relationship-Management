@@ -1,7 +1,13 @@
+// Add API URL configuration at the top of the file
+const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:8080' 
+    : 'http://crmwebapp-env.eba-hur2mvaf.us-east-1.elasticbeanstalk.com';
+
 document.addEventListener('DOMContentLoaded', () => {
     async function fetchAccounts() {
         try {
-            const response = await fetch('http://localhost:8080/accounts');
+            // Update the fetch URL to use API_URL
+            const response = await fetch(`${API_URL}/accounts`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch accounts. Status: ${response.status}`);
             }

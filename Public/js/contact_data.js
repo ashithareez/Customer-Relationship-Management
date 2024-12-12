@@ -1,7 +1,11 @@
+const API_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:8080' 
+    : 'http://crmwebapp-env.eba-hur2mvaf.us-east-1.elasticbeanstalk.com';
+
 document.addEventListener('DOMContentLoaded', () => {
     async function fetchContacts() {
         try {
-            const response = await fetch('http://localhost:8080/contacts');
+            const response = await fetch(`${API_URL}/contacts`);
             if (!response.ok) {
                 throw new Error(`Failed to fetch contacts. Status: ${response.status}`);
             }

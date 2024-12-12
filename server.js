@@ -4,11 +4,15 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 app.use(express.json());
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: ['http://crmwebapp-env.eba-hur2mvaf.us-east-1.elasticbeanstalk.com', 'http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 app.use(bodyParser.json());
 
 // SQL Azure connection configuration
@@ -680,7 +684,7 @@ app.get('/', (req, res) => {
 app.get('/index', (req, res) => {
     res.sendFile(path.join(__dirname, 'Public' , 'index.html'));
 });
-app.use(express.static(path.join(__dirname, 'Public')));
+app.use(express.static('public'));
 // Account routes
 app.get('/account.html',  (req, res) => {
     //res.type('text/html');
@@ -741,5 +745,5 @@ module.exports = app;
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on port ${port}`);
 });
