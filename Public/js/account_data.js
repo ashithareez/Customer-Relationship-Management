@@ -6,14 +6,20 @@ const API_URL = window.location.hostname === 'localhost'
 document.addEventListener('DOMContentLoaded', () => {
     async function fetchAccounts() {
         try {
-            // Update the fetch URL to use API_URL
-            const response = await fetch(`${API_URL}/accounts`);
+            // Add console.log to debug
+            console.log('Fetching from:', `${API_URL}/accounts`);
+            
+            const response = await fetch(`${API_URL}/api/accounts`);
+            
+            // Log the response status
+            console.log('Response status:', response.status);
+            
             if (!response.ok) {
                 throw new Error(`Failed to fetch accounts. Status: ${response.status}`);
             }
 
             const accounts = await response.json();
-            console.log('Fetched accounts:', accounts); // Debug log
+            console.log('Fetched accounts:', accounts);
 
             const tableBody = document.getElementById('accountTableBody');
             tableBody.innerHTML = '';
@@ -37,8 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 tableBody.appendChild(row);
             });
         } catch (error) {
-            console.error('Error fetching accounts:', error);
-            alert('An error occurred while fetching accounts.');
+            console.error('Detailed error:', error);
+            // Log the full error details
+            if (error.response) {
+                console.log('Response:', await error.response.text());
+            }
         }
     }
 
