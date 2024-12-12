@@ -2,18 +2,34 @@ const express = require('express');
 const sql = require('mssql');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 8080;
 
-app.use(express.json());
 // Middleware
+app.use(express.json());
 app.use(cors({
     origin: ['http://crmwebapp-env.eba-hur2mvaf.us-east-1.elasticbeanstalk.com', 'http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
 app.use(bodyParser.json());
+
+// Serve static files from the Public directory
+app.use(express.static(path.join(__dirname, 'Public'), {
+    setHeaders: (res, path, stat) => {
+        if (path.endsWith('.js')) {
+            res.set('Content-Type', 'application/javascript');
+        } else if (path.endsWith('.css')) {
+            res.set('Content-Type', 'text/css');
+        } else if (path.endsWith('.png')) {
+            res.set('Content-Type', 'image/png');
+        } else if (path.endsWith('.jpg') || path.endsWith('.jpeg')) {
+            res.set('Content-Type', 'image/jpeg');
+        }
+    }
+}));
 
 // SQL Azure connection configuration
 const config = {
@@ -648,11 +664,6 @@ app.put('/leads/:id', async (req, res) => {
 // ====== Login Route ======
 // Removed duplicate login route
 
-const path = require('path');
-//const router = express.Router();
- 
-
- 
 // Define routes for serving HTML pages
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname,  'Public' ,'login.html'));
@@ -661,7 +672,6 @@ app.get('/', (req, res) => {
 app.get('/index.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'Public' , 'index.html'));
 });
-app.use(express.static('public'));
 // Account routes
 app.get('/account.html',  (req, res) => {
     //res.type('text/html');
